@@ -224,6 +224,111 @@ final class AngeloTests: XCTestCase {
         XCTAssertEqual(output, elementTransition.performTransition(input: input))
     }
     
+    // LSystemRuleParametricComponent tests
+    func testLSystemRuleParametricComponentCreation() {
+        let component = LSystemRuleParametricComponent { (component) -> Bool in
+            let height = component.getParameter("height") as! Int
+            return height < 5
+        }
+        
+        XCTAssertNotNil(component)
+    }
+    
+    // LSystemRuleContextAwareComponent tests
+    func testLSystemRuleContextAwareComponentCreation() {
+        let component = LSystemRuleContextAwareComponent(delegate: nil) { (delegate) -> Bool in
+            delegate.iterations > 5
+        }
+        
+        XCTAssertNotNil(component)
+    }
+    
+    func testLSystemRuleContextAwareComponentThrows() {
+        let component = LSystemRuleContextAwareComponent(delegate: nil) { (delegate) -> Bool in
+            delegate.iterations > 5
+        }
+        
+        XCTAssertThrowsError(try component.isValid())
+    }
+    
+    // LSystemRule tests
+    func testLSystemRuleCreationSucceeds() {
+        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"))
+        
+        XCTAssertNotNil(rule)
+        XCTAssertNotNil(rule.input)
+        XCTAssertEqual(rule.outputs.count, 1)
+        XCTAssertEqual(rule.weight, 1)
+        XCTAssertNil(rule.parametricComponent)
+        XCTAssertNil(rule.contextAwareComponent)
+    }
+    
+    func testLSystemRuleCreationWithParametricComponent() {
+        let component = LSystemRuleParametricComponent { (elementComponent) -> Bool in
+            let weight = elementComponent.getParameter("weight") as! Int
+            return weight > 5
+        }
+        
+        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, parametricComponent: component)
+        
+        XCTAssertNotNil(rule)
+        XCTAssertNotNil(rule.input)
+        XCTAssertEqual(rule.outputs.count, 1)
+        XCTAssertEqual(rule.weight, 1)
+        XCTAssertNotNil(rule.parametricComponent)
+        XCTAssertNil(rule.contextAwareComponent)
+    }
+    
+    func testLSystemRuleCreationWithContextAwareComponent() {
+        let component = LSystemRuleContextAwareComponent(delegate: nil) { (delegate) -> Bool in
+            true
+        }
+        
+        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, contextAwareComponent: component)
+        
+        XCTAssertNotNil(rule)
+        XCTAssertNotNil(rule.input)
+        XCTAssertEqual(rule.outputs.count, 1)
+        XCTAssertEqual(rule.weight, 1)
+        XCTAssertNil(rule.parametricComponent)
+        XCTAssertNotNil(rule.contextAwareComponent)
+    }
+    
+    func testLSystemRuleFullCreation() {
+        let parametricComponent = LSystemRuleParametricComponent { (elementComponent) -> Bool in
+            let weight = elementComponent.getParameter("weight") as! Int
+            return weight > 5
+        }
+        
+        let contextAwareComponent = LSystemRuleContextAwareComponent(delegate: nil) { (delegate) -> Bool in
+            true
+        }
+        
+        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, parametricComponent: parametricComponent, contextAwareComponent: contextAwareComponent)
+        
+        XCTAssertNotNil(rule)
+        XCTAssertNotNil(rule.input)
+        XCTAssertEqual(rule.outputs.count, 1)
+        XCTAssertEqual(rule.weight, 1)
+        XCTAssertNotNil(rule.parametricComponent)
+        XCTAssertNotNil(rule.contextAwareComponent)
+    }
+    
+    // With parametric component
+    func testLSystemRuleParametricValid() {
+
+    }
+    
+    // No components
+    func testLSystemRuleSimpleApply() {
+
+    }
+    
+    // No components
+    func testLSystemRuleSimpleApplyWithParameters() {
+
+    }
+    
     static var allTests = [
         // ====== Weighted List tests
         ("testWeightedListCreation", testWeightedListCreationIsEmpty),

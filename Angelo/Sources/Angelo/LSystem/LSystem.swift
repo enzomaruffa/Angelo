@@ -39,3 +39,7 @@ enum LSystemNoTransitionBehavior {
     case keep
     case remove
 }
+
+enum LSystemErrors: Error {
+    case NoContextDelegate
+}
