@@ -8,13 +8,16 @@
 import Foundation
 
 class LSystemRule {
+    typealias ParametericFunction = (([String: Any]) -> Bool)?
+    typealias ContextAwareFunction = ((LSystemRuleContextAwareSource) -> Bool)?
+    
     let input: LSystemElement
     let outputs: [LSystemElement]
     
     let weight: Double
     
-    internal let parametricComponent: LSystemRuleParametricComponent?
-    internal var contextAwareComponent: LSystemRuleContextAwareComponent?
+    let canApplyByParameters: ParametericFunction
+    let canApplyByContext: ContextAwareFunction
     
     convenience init(input: LSystemElement, output: LSystemElement) {
         self.init(input: input, outputs: [output], weight: 1)
@@ -24,64 +27,68 @@ class LSystemRule {
         self.init(input: input, outputs: outputs, weight: 1)
     }
     
+    convenience init(input: LSystemElement, output: LSystemElement, weight: Double) {
+        self.init(input: input, outputs: [output], weight: weight)
+    }
+    
     init(input: LSystemElement, outputs: [LSystemElement], weight: Double) {
         self.input = input
         self.outputs = outputs
         self.weight = weight
-        self.parametricComponent = nil
-        self.contextAwareComponent = nil
+        self.canApplyByParameters = nil
+        self.canApplyByContext = nil
     }
     
-    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, parametricComponent: LSystemRuleParametricComponent) {
-        self.init(input: input, outputs: [output], weight: weight, parametricComponent: parametricComponent)
+    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, canApplyByParameters: ParametericFunction) {
+        self.init(input: input, outputs: [output], weight: weight, canApplyByParameters: canApplyByParameters)
     }
     
-    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, parametricComponent: LSystemRuleParametricComponent) {
+    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, canApplyByParameters: ParametericFunction) {
         self.input = input
         self.outputs = outputs
         self.weight = weight
-        self.parametricComponent = parametricComponent
-        self.contextAwareComponent = nil
+        self.canApplyByParameters = canApplyByParameters
+        self.canApplyByContext = nil
     }
     
-    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, contextAwareComponent: LSystemRuleContextAwareComponent) {
-        self.init(input: input, outputs: [output], weight: weight, contextAwareComponent: contextAwareComponent)
+    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, canApplyByContext: ContextAwareFunction) {
+        self.init(input: input, outputs: [output], weight: weight, canApplyByContext: canApplyByContext)
     }
     
-    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, contextAwareComponent: LSystemRuleContextAwareComponent) {
+    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, canApplyByContext: ContextAwareFunction) {
         self.input = input
         self.outputs = outputs
         self.weight = weight
-        self.parametricComponent = nil
-        self.contextAwareComponent = contextAwareComponent
+        self.canApplyByParameters = nil
+        self.canApplyByContext = canApplyByContext
     }
     
-    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, parametricComponent: LSystemRuleParametricComponent, contextAwareComponent: LSystemRuleContextAwareComponent) {
-        self.init(input: input, outputs: [output], weight: weight, parametricComponent: parametricComponent, contextAwareComponent: contextAwareComponent)
+    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) {
+        self.init(input: input, outputs: [output], weight: weight, canApplyByParameters: canApplyByParameters, canApplyByContext: canApplyByContext)
     }
     
-    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, parametricComponent: LSystemRuleParametricComponent, contextAwareComponent: LSystemRuleContextAwareComponent) {
+    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) {
         self.input = input
         self.outputs = outputs
         self.weight = weight
-        self.parametricComponent = parametricComponent
-        self.contextAwareComponent = contextAwareComponent
+        self.canApplyByParameters = canApplyByParameters
+        self.canApplyByContext = canApplyByContext
     }
     
-    func isValid(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareComponentSource? = nil) throws -> Bool {
+    func isValid(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource? = nil) throws -> Bool {
         if inputElement != input {
             return false
         }
         
-        if let ruleParametricComponent = self.parametricComponent,
-           let elementParametricComponent = inputElement.parametricComponent,
-           !ruleParametricComponent.canBeApplied(elementParametricComponent) {
+        if let canApplyByParameters = self.canApplyByParameters,
+           let parameters = inputElement.parameters,
+           !canApplyByParameters(parameters) {
             return false
         }
         
-        if let ruleContextAwareComponent = self.contextAwareComponent,
+        if let canApplyByContext = self.canApplyByContext,
            let source = contextAwareComponentSource,
-           !(try ruleContextAwareComponent.isValid(source: source)) {
+           !(canApplyByContext(source)) {
             return false
         }
         
@@ -92,7 +99,7 @@ class LSystemRule {
         return try apply(inputElement: inputElement, transitions: [])
     }
     
-    func apply(inputElement: LSystemElement, transitions: [LSystemElementTransition]) throws -> [LSystemElement] {
+    func apply(inputElement: LSystemElement, transitions: [LSystemParametersTransition]) throws -> [LSystemElement] {
         
         if !(try isValid(forInputElement: inputElement)) {
             throw LSystemErrors.InvalidRuleApplication
@@ -100,11 +107,13 @@ class LSystemRule {
         
         var outputs = [LSystemElement]()
         for output in self.outputs {
-            if output.parametricComponent != nil {
-                guard let firstValidTransition = transitions.first(where: { $0.isValid(forInput: inputElement, output: output)}) else {
-                    throw LSystemErrors.NoAvailableTransition
-                }
-                
+            
+            if let firstValidTransition =
+                transitions.first(where: {
+                                    $0.isValid(
+                                        forInput: inputElement.string,
+                                        output: output.string)})
+            {
                 outputs.append(firstValidTransition.performTransition(input: inputElement))
             } else {
                 outputs.append(LSystemElement(output.string))

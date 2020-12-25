@@ -10,21 +10,31 @@ import Foundation
 class LSystemElement {
     let string: String
     
-    let parametricComponent: LSystemElementParametricComponent?
+    internal let parameters: [String: Any]?
     
     init(_ string: String) {
         self.string = string
-        self.parametricComponent = nil
+        self.parameters = nil
     }
     
-    init(_ string: String, parametricComponent: LSystemElementParametricComponent) {
+    init(_ string: String, parameters: [String: Any]) {
         self.string = string
-        self.parametricComponent = parametricComponent
+        self.parameters = parameters
+    }
+    
+    func getParameter(named name: String) -> Any? {
+        guard let parameters = parameters else { return nil }
+        return parameters[name]
+    }
+    
+    func parameterKeys() -> [String]? {
+        guard let parameters = parameters else { return nil }
+        return parameters.keys.map({ $0 })
     }
 }
 
 extension LSystemElement: Equatable {
     static func == (lhs: LSystemElement, rhs: LSystemElement) -> Bool {
-        lhs.string == rhs.string && lhs.parametricComponent == rhs.parametricComponent
+        lhs.string == rhs.string
     }
 }

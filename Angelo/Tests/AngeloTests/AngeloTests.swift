@@ -100,37 +100,6 @@ final class AngeloTests: XCTestCase {
     
     // ======== L-System tests
     
-    // LSystemElementParametricComponent Tests
-    func testLSystemElementParametricComponentCreation() {
-        let originalHeight = 1
-        
-        let component = LSystemElementParametricComponent(parameters: ["height": originalHeight])
-        
-        let height = component.getParameter("height") as? Int
-        
-        XCTAssertEqual(originalHeight, height)
-    }
-    
-    func testLSystemElementParametricComponentNotExists() {
-        let component = LSystemElementParametricComponent(parameters: [:])
-        
-        XCTAssertNil(component.getParameter("height"))
-    }
-    
-    func testLSystemElementParametricComponentEquals() {
-        let component = LSystemElementParametricComponent(parameters: ["height": 1])
-        let component2 = LSystemElementParametricComponent(parameters: ["height": 2])
-        
-        XCTAssertTrue(component == component2)
-    }
-    
-    func testLSystemElementParametricComponentDifferent() {
-        let component = LSystemElementParametricComponent(parameters: ["height": 1])
-        let component2 = LSystemElementParametricComponent(parameters: ["weight": 1])
-        
-        XCTAssertFalse(component == component2)
-    }
-    
     
     // LSystemElement Tests
     func testLSystemElementCreation() {
@@ -143,11 +112,11 @@ final class AngeloTests: XCTestCase {
         let originalHeight = 1
         
         let str = "a"
-        let parametricComponent = LSystemElementParametricComponent(parameters: ["height": originalHeight])
-        let element = LSystemElement(str, parametricComponent: parametricComponent)
+        let parameters = ["height": originalHeight]
+        let element = LSystemElement(str, parameters: parameters)
         
-        let height = element.parametricComponent?.getParameter("height")
-        XCTAssertEqual(originalHeight, height as! Int)
+        let height = element.getParameter(named: "height") as? Int
+        XCTAssertEqual(originalHeight, height!)
     }
     
     func testLSystemElementEquals() {
@@ -169,79 +138,63 @@ final class AngeloTests: XCTestCase {
         let input = LSystemElement("a")
         let output = LSystemElement("b")
         
-        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
-            return LSystemElement("b")
+        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String : Any]) in
+            return [:]
         }
         
-        XCTAssertEqual(input.string, elementTransition.referenceInput.string)
-        XCTAssertEqual(output.string, elementTransition.referenceOutput.string)
+        XCTAssertEqual(input.string, elementTransition.referenceInputString)
+        XCTAssertEqual(output.string, elementTransition.referenceOutputString)
     }
     
     func testLSystemElementTransitionValid() {
         let input = LSystemElement("a")
         let output = LSystemElement("b")
         
-        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
-            return LSystemElement("b")
+        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String: Any]) in
+            return [:]
         }
         
-        XCTAssertTrue(elementTransition.isValid(forInput: input, output: output))
+        XCTAssertTrue(elementTransition.isValid(forInput: input.string, output: output.string))
     }
     
     func testLSystemElementTransitionInvalid() {
         let input = LSystemElement("a")
         let output = LSystemElement("b")
         
-        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
-            return LSystemElement("b")
+        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String: Any]) in
+            return [:]
         }
         
-        XCTAssertFalse(elementTransition.isValid(forInput: input, output: input))
+        XCTAssertFalse(elementTransition.isValid(forInput: input.string, output: input.string))
     }
     
     func testLSystemElementTransitionResult() {
         let input = LSystemElement("a")
         let output = LSystemElement("b")
         
-        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
-            return LSystemElement("b")
+        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String: Any]) in
+            let number = parameters["int"] as! Int * 5
+            return ["int": number]
         }
         
         XCTAssertEqual(output, elementTransition.performTransition(input: input))
     }
     
     func testLSystemElementTransitionResult2() {
-        let input = LSystemElement("a", parametricComponent: LSystemElementParametricComponent(parameters: ["height": 1]))
-        let output = LSystemElement("b", parametricComponent: LSystemElementParametricComponent(parameters: ["weight": 10]))
+        let input = LSystemElement("a", parameters: ["height": 1])
+        let output = LSystemElement("b", parameters: ["weight": 10])
         
-        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
-            let height = element.parametricComponent?.getParameter("height") as! Int
+        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String : Any]) in
+            let height = parameters["height"] as! Int
             let weight = height * 10
-            let parametricComponent = LSystemElementParametricComponent(parameters: ["weight": weight])
-            return LSystemElement("b", parametricComponent: parametricComponent)
+            let newParameters = ["weight": weight]
+            return newParameters
         }
         
         XCTAssertEqual(output, elementTransition.performTransition(input: input))
+        XCTAssertEqual(10, elementTransition.performTransition(input: input).getParameter(named: "weight") as! Int)
     }
     
-    // LSystemRuleParametricComponent tests
-    func testLSystemRuleParametricComponentCreation() {
-        let component = LSystemRuleParametricComponent { (component) -> Bool in
-            let height = component.getParameter("height") as! Int
-            return height < 5
-        }
-        
-        XCTAssertNotNil(component)
-    }
-    
-    // LSystemRuleContextAwareComponent tests
-    func testLSystemRuleContextAwareComponentCreation() {
-        let component = LSystemRuleContextAwareComponent() { (source) -> Bool in
-            source.iterations > 5
-        }
-        
-        XCTAssertNotNil(component)
-    }
     
     // LSystemRule tests
     func testLSystemRuleCreationSucceeds() {
@@ -251,59 +204,59 @@ final class AngeloTests: XCTestCase {
         XCTAssertNotNil(rule.input)
         XCTAssertEqual(rule.outputs.count, 1)
         XCTAssertEqual(rule.weight, 1)
-        XCTAssertNil(rule.parametricComponent)
-        XCTAssertNil(rule.contextAwareComponent)
+        XCTAssertNil(rule.canApplyByParameters)
+        XCTAssertNil(rule.canApplyByContext)
     }
     
     func testLSystemRuleCreationWithParametricComponent() {
-        let component = LSystemRuleParametricComponent { (elementComponent) -> Bool in
-            let weight = elementComponent.getParameter("weight") as! Int
+        let canApplyByParameters: (([String: Any]) -> Bool) = { (parameters) -> Bool in
+            let weight = parameters["weight"] as! Int
             return weight > 5
         }
         
-        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, parametricComponent: component)
+        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, canApplyByParameters: canApplyByParameters)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
         XCTAssertEqual(rule.outputs.count, 1)
         XCTAssertEqual(rule.weight, 1)
-        XCTAssertNotNil(rule.parametricComponent)
-        XCTAssertNil(rule.contextAwareComponent)
+        XCTAssertNotNil(rule.canApplyByParameters)
+        XCTAssertNil(rule.canApplyByContext)
     }
     
     func testLSystemRuleCreationWithContextAwareComponent() {
-        let component = LSystemRuleContextAwareComponent() { (source) -> Bool in
+        let canApplyByContext: ((LSystemRuleContextAwareSource) -> Bool) = { (source) -> Bool in
             true
         }
         
-        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, contextAwareComponent: component)
+        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, canApplyByContext: canApplyByContext)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
         XCTAssertEqual(rule.outputs.count, 1)
         XCTAssertEqual(rule.weight, 1)
-        XCTAssertNil(rule.parametricComponent)
-        XCTAssertNotNil(rule.contextAwareComponent)
+        XCTAssertNil(rule.canApplyByParameters)
+        XCTAssertNotNil(rule.canApplyByContext)
     }
     
     func testLSystemRuleFullCreation() {
-        let parametricComponent = LSystemRuleParametricComponent { (elementComponent) -> Bool in
-            let weight = elementComponent.getParameter("weight") as! Int
+        let canApplyByParameters: (([String: Any]) -> Bool) = { (parameters) -> Bool in
+            let weight = parameters["weight"] as! Int
             return weight > 5
         }
         
-        let contextAwareComponent = LSystemRuleContextAwareComponent() { (source) -> Bool in
+        let canApplyByContext: ((LSystemRuleContextAwareSource) -> Bool) = { (source) -> Bool in
             true
         }
         
-        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, parametricComponent: parametricComponent, contextAwareComponent: contextAwareComponent)
+        let rule = LSystemRule(input: LSystemElement("a"), output: LSystemElement("b"), weight: 1, canApplyByParameters: canApplyByParameters, canApplyByContext: canApplyByContext)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
         XCTAssertEqual(rule.outputs.count, 1)
         XCTAssertEqual(rule.weight, 1)
-        XCTAssertNotNil(rule.parametricComponent)
-        XCTAssertNotNil(rule.contextAwareComponent)
+        XCTAssertNotNil(rule.canApplyByParameters)
+        XCTAssertNotNil(rule.canApplyByContext)
     }
     
     func testLSystemRuleValid() {
@@ -315,18 +268,18 @@ final class AngeloTests: XCTestCase {
     
     // With parametric component to test if returns as valid
     func testLSystemRuleParametricValid() {
-        let parametricComponent = LSystemRuleParametricComponent { (elementComponent) -> Bool in
-            let weight = elementComponent.getParameter("weight") as! Int
+        let canApplyByParameters: (([String: Any]) -> Bool) = { (parameters) -> Bool in
+            let weight = parameters["weight"] as! Int
             return weight > 5
         }
         
-        let elementParametricComponent = LSystemElementParametricComponent(parameters: ["weight": 20])
-        let inputElement = LSystemElement("a", parametricComponent: elementParametricComponent)
+        let parameters = ["weight": 20]
+        let inputElement = LSystemElement("a", parameters: parameters)
         
-        let rule = LSystemRule(input: inputElement, output: LSystemElement("b"), weight: 1, parametricComponent: parametricComponent)
+        let rule = LSystemRule(input: inputElement, output: LSystemElement("b"), weight: 1, canApplyByParameters: canApplyByParameters)
         
-        let elementParametricComponent2 = LSystemElementParametricComponent(parameters: ["weight": 2])
-        let inputElement2 = LSystemElement("a", parametricComponent: elementParametricComponent2)
+        let parameters2 = ["weight": 1]
+        let inputElement2 = LSystemElement("a", parameters: parameters2)
         
         XCTAssertTrue(try! rule.isValid(forInputElement: inputElement))
         XCTAssertFalse(try! rule.isValid(forInputElement: inputElement2))
@@ -349,45 +302,28 @@ final class AngeloTests: XCTestCase {
     // Rule with parametric components
     func testLSystemRuleSimpleApplyWithParameters() {
         let rule = LSystemRule(
-            input: LSystemElement("a",
-                                  parametricComponent:
-                                    LSystemElementParametricComponent(
-                                        parameters: ["height": 1])),
-            output: LSystemElement("b",
-                                   parametricComponent:
-                                    LSystemElementParametricComponent(
-                                        parameters: ["weight": 10]))
+            input: LSystemElement("a"),
+            output: LSystemElement("b")
         )
         
-        let transition = LSystemElementTransition(
-            referenceInput: LSystemElement("a",
-                                           parametricComponent:
-                                            LSystemElementParametricComponent(
-                                                parameters: ["height": 1])),
-            referenceOutput: LSystemElement("b",
-                                            parametricComponent:
-                                                LSystemElementParametricComponent(
-                                                    parameters: ["weight": 1])))
-        { (input) -> (LSystemElement) in
-            let aHeight = input.parametricComponent?.getParameter("height") as! Int
-            return LSystemElement("b", parametricComponent: LSystemElementParametricComponent(parameters: ["weight": aHeight * 10]))
+        let transition = LSystemParametersTransition(
+            referenceInputString: "a",
+            referenceOutputString: "b")
+        { (parameters) -> ([String : Any]) in
+            let aHeight = parameters["height"] as! Int
+            return ["weight": aHeight * 10]
         }
         
-        let input = LSystemElement("a", parametricComponent:
-                                    LSystemElementParametricComponent(
-                                        parameters: ["height": 1]))
+        let input = LSystemElement("a", parameters: ["height": 1])
         
         XCTAssertTrue(try! rule.isValid(forInputElement: input))
         
         let outputs = try! rule.apply(inputElement: input, transitions: [transition])
+        let referenceOutput = LSystemElement("b", parameters: ["weight": 10])
         
-        let referenceOutput = LSystemElement("b",
-                                             parametricComponent:
-                                                LSystemElementParametricComponent(
-                                                    parameters: ["weight": 10]))
         XCTAssertEqual(1, outputs.count)
         XCTAssertEqual(referenceOutput, outputs.first!)
-        XCTAssertEqual(referenceOutput.parametricComponent?.getParameter("weight") as! Int, outputs.first?.parametricComponent?.getParameter("weight") as! Int)
+        XCTAssertEqual(referenceOutput.getParameter(named: "weight") as! Int, outputs.first?.getParameter(named: "weight") as! Int)
     }
     
     // LSystem
@@ -398,31 +334,19 @@ final class AngeloTests: XCTestCase {
         XCTAssertEqual(0, system.transitions.count)
         
         let rule = LSystemRule(
-            input: LSystemElement("a",
-                                  parametricComponent:
-                                    LSystemElementParametricComponent(
-                                        parameters: ["height": 1])),
-            output: LSystemElement("b",
-                                   parametricComponent:
-                                    LSystemElementParametricComponent(
-                                        parameters: ["weight": 10]))
+            input: LSystemElement("a", parameters: ["height": 1]),
+            output: LSystemElement("b", parameters: ["weight": 10])
         )
         
         system.add(rule: rule)
         XCTAssertEqual(1, system.rules.count)
         
-        let transition = LSystemElementTransition(
-            referenceInput: LSystemElement("a",
-                                           parametricComponent:
-                                            LSystemElementParametricComponent(
-                                                parameters: ["height": 1])),
-            referenceOutput: LSystemElement("b",
-                                            parametricComponent:
-                                                LSystemElementParametricComponent(
-                                                    parameters: ["weight": 1])))
-        { (input) -> (LSystemElement) in
-            let aHeight = input.parametricComponent?.getParameter("height") as! Int
-            return LSystemElement("b", parametricComponent: LSystemElementParametricComponent(parameters: ["weight": aHeight * 10]))
+        let transition = LSystemParametersTransition(
+            referenceInputString: "a",
+            referenceOutputString: "b")
+        { (parameters) -> ([String : Any]) in
+            let aHeight = parameters["height"] as! Int
+            return ["weight": aHeight * 10]
         }
         
         system.add(transition: transition)
@@ -440,15 +364,77 @@ final class AngeloTests: XCTestCase {
     }
     
     func testLSystemProducing() {
-        let rule1 = LSystemRule(input: LSystemElement("a"), outputs: [LSystemElement("a"), LSystemElement("b")])
+        let system = LSystem()
         
-        let system = LSystem(rules: [rule1], transitions: [])
+        system.addRule(input: "a", outputs: ["a", "b"])
         
         let output = try! system.produceOutput(initialElement: LSystemElement("a"), iterations: 5)
         
         XCTAssertEqual(output.iterationsPerformed, 5)
         XCTAssertEqual(output.currentStringRepresentation, "abbbbb")
     }
+    
+    func testLSystemProducingWithContextAware() {
+        let system = LSystem()
+        
+        let rule = LSystemRule(
+            input: LSystemElement("a"),
+            outputs: [LSystemElement("a"), LSystemElement("b")],
+            weight: 1,
+            canApplyByContext: { (source) -> Bool in
+                source.currentStringRepresentation.filter({$0 == "b"}).count < 3
+            })
+        system.add(rule: rule)
+        
+        let output = try! system.produceOutput(initialElement: LSystemElement("a"), iterations: 5)
+        
+        XCTAssertEqual(output.iterationsPerformed, 5)
+        XCTAssertEqual(output.currentStringRepresentation, "abbb")
+    }
+    
+    func testLSystemProducingWithParametric() {
+        let system = LSystem()
+        
+        let rule = LSystemRule(
+            input: LSystemElement("a"),
+            outputs: [LSystemElement("a"), LSystemElement("b")],
+            weight: 1,
+            canApplyByParameters: { (parameters) -> Bool in
+                let number = parameters["number"] as! Int
+                return number < 5
+            })
+        
+        let rule2 = LSystemRule(
+            input: LSystemElement("a"),
+            outputs: [LSystemElement("a"), LSystemElement("c")],
+            weight: 1,
+            canApplyByParameters: { (parameters) -> Bool in
+                let number = parameters["number"] as! Int
+                return number >= 5
+            })
+        
+        system.add(rule: rule)
+        system.add(rule: rule2)
+        
+        system.addTransition(input: "a", output: "a") { (parameters) -> ([String : Any]) in
+            let number = parameters["number"] as! Int
+            return ["number": number + 1]
+        }
+        
+        system.addTransition(input: "a", output: "b") { (parameters) -> ([String : Any]) in
+            let number = parameters["number"] as! Int
+            return ["humour": number*10]
+        }
+        
+        let output = try! system.produceOutput(initialElement: LSystemElement("a", parameters: ["number": 0]), iterations: 10)
+        
+        print(output)
+        
+        XCTAssertEqual(output.iterationsPerformed, 10)
+        XCTAssertEqual(output.currentStringRepresentation, "acccccbbbbb")
+        XCTAssertEqual(output.currentOutput.first?.getParameter(named: "number") as! Int, 10)
+    }
+    
     
     static var allTests = [
         // ====== Weighted List tests

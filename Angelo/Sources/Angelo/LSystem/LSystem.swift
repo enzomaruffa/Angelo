@@ -9,11 +9,11 @@ import Foundation
 
 class LSystem {
     var rules: [LSystemRule]
-    var transitions: [LSystemElementTransition]
+    var transitions: [LSystemParametersTransition]
     
     var noRuleBehavior: LSystemNoRuleBehavior = .keep
     
-    init(rules: [LSystemRule], transitions: [LSystemElementTransition]) {
+    init(rules: [LSystemRule], transitions: [LSystemParametersTransition]) {
         self.rules = rules
         self.transitions = transitions
     }
@@ -26,21 +26,54 @@ class LSystem {
         rules.append(rule)
     }
     
-    func add(transition: LSystemElementTransition) {
+    func addRule(input: String, output: String) {
+        let rule = LSystemRule(input: LSystemElement(input), output: LSystemElement(output))
+        add(rule: rule)
+    }
+    
+    func addRule(input: String, output: String, weight: Double) {
+        let rule = LSystemRule(input: LSystemElement(input), output: LSystemElement(output), weight: weight)
+        add(rule: rule)
+    }
+    
+    func addRule(input: String, outputs: [String]) {
+        let outputsElements = outputs.map({ LSystemElement($0) })
+        let rule = LSystemRule(input: LSystemElement(input), outputs: outputsElements)
+        add(rule: rule)
+    }
+    
+    func addRule(input: String, outputs: [String], weight: Double) {
+        let outputsElements = outputs.map({ LSystemElement($0) })
+        let rule = LSystemRule(input: LSystemElement(input), outputs: outputsElements, weight: weight)
+        add(rule: rule)
+    }
+    
+    func add(transition: LSystemParametersTransition) {
         transitions.append(transition)
     }
     
-    internal func iterate(input: LSystemOutput) throws ->  LSystemOutput {
+    func addTransition(input: String, output: String, transition: @escaping ([String: Any]) -> ([String: Any])) {
         
+        let transition = LSystemParametersTransition(referenceInputString: input, referenceOutputString: output, transition: transition)
+        
+        add(transition: transition)
+    }
+    
+    internal func getAvailableRules(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource?) throws -> [LSystemRule] {
+        let availableRules = try rules.filter { (rule) -> Bool in
+            try rule.isValid(forInputElement: inputElement, contextAwareComponentSource: contextAwareComponentSource)
+        }
+        return availableRules
+    }
+    
+    func iterate(input: LSystemOutput) throws ->  LSystemOutput {
         let output = LSystemOutput(initialElement: input.initialElement)
         output.iterationsPerformed = input.iterationsPerformed + 1
         
         var outputs = [LSystemElement]()
         
         for element in input.currentOutput {
-            let availableRules = try rules.filter { (rule) -> Bool in
-                try rule.isValid(forInputElement: element, contextAwareComponentSource: input)
-            }
+            let availableRules = try getAvailableRules(forInputElement: element, contextAwareComponentSource: input)
             
             let list = WeightedList<LSystemRule>()
             try availableRules.forEach { (rule) in
@@ -57,7 +90,7 @@ class LSystem {
                 }
             }
             
-            let ruleOutputs = try selectedRule.apply(inputElement: element)
+            let ruleOutputs = try selectedRule.apply(inputElement: element, transitions: transitions)
             outputs.append(contentsOf: ruleOutputs)
         }
         

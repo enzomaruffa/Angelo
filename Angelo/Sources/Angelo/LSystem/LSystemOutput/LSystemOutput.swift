@@ -18,7 +18,7 @@ class LSystemOutput {
     }
 }
 
-extension LSystemOutput: LSystemRuleContextAwareComponentSource {
+extension LSystemOutput: LSystemRuleContextAwareSource {
     var iterations: Int {
         iterationsPerformed
     }
