@@ -7,15 +7,16 @@
 
 import Foundation
 
-struct LSystemRuleContextAwareComponent {
-    weak var delegate: LSystemRuleContextAwareComponentDelegate?
-    var canBeApplied: ((LSystemRuleContextAwareComponentDelegate) -> Bool)
+class LSystemRuleContextAwareComponent {
+    typealias ApplyFunction = ((LSystemRuleContextAwareComponentSource) -> Bool)
     
-    func isValid() throws -> Bool  {
-        guard let delegate = delegate else {
-            throw LSystemErrors.NoContextDelegate
-        }
-        
-        return canBeApplied(delegate)
+    var canBeApplied: ApplyFunction
+    
+    init(canBeApplied: @escaping ApplyFunction) {
+        self.canBeApplied = canBeApplied
+    }
+    
+    func isValid(source: LSystemRuleContextAwareComponentSource) throws -> Bool  {
+        return canBeApplied(source)
     }
 }

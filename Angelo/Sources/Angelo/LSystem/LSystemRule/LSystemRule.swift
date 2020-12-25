@@ -13,8 +13,8 @@ class LSystemRule {
     
     let weight: Double
     
-    let parametricComponent: LSystemRuleParametricComponent?
-    let contextAwareComponent: LSystemRuleContextAwareComponent?
+    internal let parametricComponent: LSystemRuleParametricComponent?
+    internal var contextAwareComponent: LSystemRuleContextAwareComponent?
     
     convenience init(input: LSystemElement, output: LSystemElement) {
         self.init(input: input, outputs: [output], weight: 1)
@@ -66,5 +66,51 @@ class LSystemRule {
         self.weight = weight
         self.parametricComponent = parametricComponent
         self.contextAwareComponent = contextAwareComponent
+    }
+    
+    func isValid(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareComponentSource? = nil) throws -> Bool {
+        if inputElement != input {
+            return false
+        }
+        
+        if let ruleParametricComponent = self.parametricComponent,
+           let elementParametricComponent = inputElement.parametricComponent,
+           !ruleParametricComponent.canBeApplied(elementParametricComponent) {
+            return false
+        }
+        
+        if let ruleContextAwareComponent = self.contextAwareComponent,
+           let source = contextAwareComponentSource,
+           !(try ruleContextAwareComponent.isValid(source: source)) {
+            return false
+        }
+        
+        return true
+    }
+    
+    func apply(inputElement: LSystemElement) throws -> [LSystemElement] {
+        return try apply(inputElement: inputElement, transitions: [])
+    }
+    
+    func apply(inputElement: LSystemElement, transitions: [LSystemElementTransition]) throws -> [LSystemElement] {
+        
+        if !(try isValid(forInputElement: inputElement)) {
+            throw LSystemErrors.InvalidRuleApplication
+        }
+        
+        var outputs = [LSystemElement]()
+        for output in self.outputs {
+            if output.parametricComponent != nil {
+                guard let firstValidTransition = transitions.first(where: { $0.isValid(forInput: inputElement, output: output)}) else {
+                    throw LSystemErrors.NoAvailableTransition
+                }
+                
+                outputs.append(firstValidTransition.performTransition(input: inputElement))
+            } else {
+                outputs.append(LSystemElement(output.string))
+            }
+        }
+        
+        return outputs
     }
 }

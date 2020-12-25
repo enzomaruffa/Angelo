@@ -8,38 +8,81 @@
 import Foundation
 
 class LSystem {
-    var elements: [LSystemElement]
     var rules: [LSystemRule]
     var transitions: [LSystemElementTransition]
     
-    var noTransitionBehavior: LSystemNoTransitionBehavior = .keep
+    var noRuleBehavior: LSystemNoRuleBehavior = .keep
     
-    init(elements: [LSystemElement], rules: [LSystemRule], transitions: [LSystemElementTransition]) {
-        self.elements = elements
+    init(rules: [LSystemRule], transitions: [LSystemElementTransition]) {
         self.rules = rules
         self.transitions = transitions
     }
     
     convenience init() {
-        self.init(elements: [], rules: [], transitions: [])
-    }
-}
-
-extension LSystem: LSystemRuleContextAwareComponentDelegate {
-    var iterations: Int {
-        0
+        self.init(rules: [], transitions: [])
     }
     
-    var currentStringRepresentation: String {
-        ""
+    func add(rule: LSystemRule) {
+        rules.append(rule)
+    }
+    
+    func add(transition: LSystemElementTransition) {
+        transitions.append(transition)
+    }
+    
+    internal func iterate(input: LSystemOutput) throws ->  LSystemOutput {
+        
+        let output = LSystemOutput(initialElement: input.initialElement)
+        output.iterationsPerformed = input.iterationsPerformed + 1
+        
+        var outputs = [LSystemElement]()
+        
+        for element in input.currentOutput {
+            let availableRules = try rules.filter { (rule) -> Bool in
+                try rule.isValid(forInputElement: element, contextAwareComponentSource: input)
+            }
+            
+            let list = WeightedList<LSystemRule>()
+            try availableRules.forEach { (rule) in
+                try list.add(rule, weight: rule.weight)
+            }
+            
+            guard let selectedRule = list.randomElement() else {
+                switch noRuleBehavior {
+                case .keep:
+                    outputs.append(element)
+                    continue
+                case .remove:
+                    continue
+                }
+            }
+            
+            let ruleOutputs = try selectedRule.apply(inputElement: element)
+            outputs.append(contentsOf: ruleOutputs)
+        }
+        
+        output.currentOutput = outputs
+        return output
+    }
+    
+    func produceOutput(initialElement: LSystemElement, iterations: Int)  throws -> LSystemOutput {
+        var output = LSystemOutput(initialElement: initialElement)
+        output.currentOutput = [initialElement]
+        
+        for _ in 0..<iterations {
+            output = try iterate(input: output)
+        }
+        
+        return output
     }
 }
 
-enum LSystemNoTransitionBehavior {
+enum LSystemNoRuleBehavior {
     case keep
     case remove
 }
 
 enum LSystemErrors: Error {
-    case NoContextDelegate
+    case InvalidRuleApplication
+    case NoAvailableTransition
 }

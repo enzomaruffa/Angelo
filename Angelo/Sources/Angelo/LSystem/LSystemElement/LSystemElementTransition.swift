@@ -12,7 +12,7 @@ struct LSystemElementTransition {
     internal let referenceOutput: LSystemElement
     internal let transition: (LSystemElement) -> (LSystemElement)
     
-    func valid(forInput input: LSystemElement, output: LSystemElement) -> Bool {
+    func isValid(forInput input: LSystemElement, output: LSystemElement) -> Bool {
         return input == referenceInput && output == referenceOutput
     }
     

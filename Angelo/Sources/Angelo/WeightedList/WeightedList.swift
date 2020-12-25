@@ -44,6 +44,10 @@ class WeightedList<Element> {
     }
     
     func randomElement() -> Element? {
+        guard !isEmpty else {
+            return nil
+        }
+        
         let totalWeight = self.totalWeight
         let randomWeight = Double.random(in: 0..<totalWeight)
         
