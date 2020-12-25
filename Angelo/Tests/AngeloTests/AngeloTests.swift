@@ -2,19 +2,20 @@ import XCTest
 @testable import Angelo
 
 final class AngeloTests: XCTestCase {
-    // Weighted List tests
-    func testCreationIsEmpty() {
+    
+    // ======== Weighted List tests
+    func testWeightedListCreationIsEmpty() {
         let list = WeightedList<Int>()
         XCTAssertEqual(list.count, 0)
     }
     
-    func testAddOne() {
+    func testWeightedListAddOne() {
         let list = WeightedList<Int>()
         list.add(1)
         XCTAssertEqual(list.count, 1)
     }
     
-    func testAddRandom() {
+    func testWeightedListAddRandom() {
         let random = Int.random(in: 30...50)
         
         let list = WeightedList<Int>()
@@ -23,12 +24,12 @@ final class AngeloTests: XCTestCase {
         XCTAssertEqual(list.count, random)
     }
     
-    func testAddInvalidProbability() {
+    func testWeightedListAddInvalidProbability() {
         let list = WeightedList<Int>()
         XCTAssertThrowsError(try list.add(1, weight: -1))
     }
     
-    func testRandomSingleElement() {
+    func testWeightedListRandomSingleElement() {
         let list = WeightedList<Int>()
         list.add(20)
         let element = list.randomElement()
@@ -37,7 +38,7 @@ final class AngeloTests: XCTestCase {
     }
     
     // NOTE: This test might fail due to stochastic reasons
-    func testBigDifferenceProbability() {
+    func testWeightedListBigDifferenceProbability() {
         let list = WeightedList<Int>()
         
         let elementToSelect = 1000
@@ -58,7 +59,7 @@ final class AngeloTests: XCTestCase {
     }
     
     // NOTE: This test might fail due to stochastic reasons
-    func testSimilarProbability() {
+    func testWeightedListSimilarProbability() {
         let list = WeightedList<Int>()
         
         let elementToAddCount = 10
@@ -85,7 +86,7 @@ final class AngeloTests: XCTestCase {
         XCTAssertLessThan(minRatio, 50)
     }
     
-    func testRemoveAll() {
+    func testWeightedListRemoveAll() {
         let list = WeightedList<Int>()
         
         list.add(1)
@@ -96,15 +97,145 @@ final class AngeloTests: XCTestCase {
         
         XCTAssertTrue(list.isEmpty)
     }
-
+    
+    // ======== L-System tests
+    
+    // LSystemElementParametricComponent Tests
+    func testLSystemElementParametricComponentCreation() {
+        let originalHeight = 1
+        
+        let component = LSystemElementParametricComponent(parameters: ["height": originalHeight])
+        
+        let height = component.getParameter("height") as? Int
+        
+        XCTAssertEqual(originalHeight, height)
+    }
+    
+    func testLSystemElementParametricComponentNotExists() {
+        let component = LSystemElementParametricComponent(parameters: [:])
+        
+        XCTAssertNil(component.getParameter("height"))
+    }
+    
+    func testLSystemElementParametricComponentEquals() {
+        let component = LSystemElementParametricComponent(parameters: ["height": 1])
+        let component2 = LSystemElementParametricComponent(parameters: ["height": 2])
+        
+        XCTAssertTrue(component == component2)
+    }
+    
+    func testLSystemElementParametricComponentDifferent() {
+        let component = LSystemElementParametricComponent(parameters: ["height": 1])
+        let component2 = LSystemElementParametricComponent(parameters: ["weight": 1])
+        
+        XCTAssertFalse(component == component2)
+    }
+    
+    
+    // LSystemElement Tests
+    func testLSystemElementCreation() {
+        let str = "a"
+        let element = LSystemElement(str)
+        XCTAssertEqual(element.string, str)
+    }
+    
+    func testLSystemElementParameterCreation() {
+        let originalHeight = 1
+        
+        let str = "a"
+        let parametricComponent = LSystemElementParametricComponent(parameters: ["height": originalHeight])
+        let element = LSystemElement(str, parametricComponent: parametricComponent)
+        
+        let height = element.parametricComponent?.getParameter("height")
+        XCTAssertEqual(originalHeight, height as! Int)
+    }
+    
+    func testLSystemElementEquals() {
+        let element = LSystemElement("a")
+        let element2 = LSystemElement("a")
+        
+        XCTAssertTrue(element == element2)
+    }
+    
+    func testLSystemElementDifferent() {
+        let element = LSystemElement("a")
+        let element2 = LSystemElement("b")
+        
+        XCTAssertFalse(element == element2)
+    }
+    
+    // LSystemElementTransition Tests
+    func testLSystemElementTransitionCreation() {
+        let input = LSystemElement("a")
+        let output = LSystemElement("b")
+        
+        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
+            return LSystemElement("b")
+        }
+        
+        XCTAssertEqual(input.string, elementTransition.referenceInput.string)
+        XCTAssertEqual(output.string, elementTransition.referenceOutput.string)
+    }
+    
+    func testLSystemElementTransitionValid() {
+        let input = LSystemElement("a")
+        let output = LSystemElement("b")
+        
+        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
+            return LSystemElement("b")
+        }
+        
+        XCTAssertTrue(elementTransition.valid(forInput: input, output: output))
+    }
+    
+    func testLSystemElementTransitionInvalid() {
+        let input = LSystemElement("a")
+        let output = LSystemElement("b")
+        
+        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
+            return LSystemElement("b")
+        }
+        
+        XCTAssertFalse(elementTransition.valid(forInput: input, output: input))
+    }
+    
+    func testLSystemElementTransitionResult() {
+        let input = LSystemElement("a")
+        let output = LSystemElement("b")
+        
+        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
+            return LSystemElement("b")
+        }
+        
+        XCTAssertEqual(output, elementTransition.performTransition(input: input))
+    }
+    
+    func testLSystemElementTransitionResult2() {
+        let input = LSystemElement("a", parametricComponent: LSystemElementParametricComponent(parameters: ["height": 1]))
+        let output = LSystemElement("b", parametricComponent: LSystemElementParametricComponent(parameters: ["weight": 10]))
+        
+        let elementTransition = LSystemElementTransition(referenceInput: input, referenceOutput: output) { (element) -> (LSystemElement) in
+            let height = element.parametricComponent?.getParameter("height") as! Int
+            let weight = height * 10
+            let parametricComponent = LSystemElementParametricComponent(parameters: ["weight": weight])
+            return LSystemElement("b", parametricComponent: parametricComponent)
+        }
+        
+        XCTAssertEqual(output, elementTransition.performTransition(input: input))
+    }
+    
     static var allTests = [
-        ("testCreation", testCreationIsEmpty),
-        ("testAddOne", testAddOne),
-        ("testAddRandom", testAddRandom),
-        ("testAddInvalidProbability", testAddInvalidProbability),
-        ("testRandomSingleElement", testRandomSingleElement),
-        ("testBigDifferenceProbability", testBigDifferenceProbability),
-        ("testSimilarProbability", testSimilarProbability),
-        ("testRemoveAll", testRemoveAll)
+        // ====== Weighted List tests
+        ("testWeightedListCreation", testWeightedListCreationIsEmpty),
+        ("testWeightedListAddOne", testWeightedListAddOne),
+        ("testWeightedListAddRandom", testWeightedListAddRandom),
+        ("testWeightedListAddInvalidProbability", testWeightedListAddInvalidProbability),
+        ("testWeightedListRandomSingleElement", testWeightedListRandomSingleElement),
+        ("testWeightedListBigDifferenceProbability", testWeightedListBigDifferenceProbability),
+        ("testWeightedListSimilarProbability", testWeightedListSimilarProbability),
+        ("testWeightedListRemoveAll", testWeightedListRemoveAll),
+        
+        // ===== L-System tests
+        
     ]
 }
