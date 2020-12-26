@@ -50,7 +50,7 @@ class LSystem {
         
         var outputs = [LSystemElement]()
         
-        for element in input.currentOutput {
+        for element in input.outputElements {
             let availableRules = getAvailableRules(forInputElement: element, contextAwareComponentSource: input)
             
             let list = WeightedList<LSystemRule>()
@@ -72,7 +72,7 @@ class LSystem {
             }
         }
         
-        output.currentOutput = outputs
+        output.outputElements = outputs
         return output
     }
     
@@ -82,7 +82,7 @@ class LSystem {
     
     func produceOutput(initialElement: LSystemElement, iterations: Int)  throws -> LSystemOutput {
         var output = LSystemOutput(initialElement: initialElement)
-        output.currentOutput = [initialElement]
+        output.outputElements = [initialElement]
         
         for _ in 0..<iterations {
             output = try iterate(input: output)

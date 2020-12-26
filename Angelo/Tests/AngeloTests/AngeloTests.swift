@@ -99,8 +99,6 @@ final class AngeloTests: XCTestCase {
     }
     
     // ======== L-System tests
-    
-    
     // LSystemElement Tests
     func testLSystemElementCreation() {
         let str = "a"
@@ -373,7 +371,7 @@ final class AngeloTests: XCTestCase {
         let output = try! system.produceOutput(initialElement: LSystemElement("a"), iterations: 5)
         
         XCTAssertEqual(output.iterationsPerformed, 5)
-        XCTAssertEqual(output.currentStringRepresentation, "abbbbb")
+        XCTAssertEqual(output.string, "abbbbb")
     }
     
     func testLSystemProducingWithContextAware() {
@@ -384,14 +382,14 @@ final class AngeloTests: XCTestCase {
             outputs: ["a", "b"],
             weight: 1,
             canApplyByContext: { (source) -> Bool in
-                source.currentStringRepresentation.filter({$0 == "b"}).count < 3
+                source.string.filter({$0 == "b"}).count < 3
             })
         system.add(rule: rule)
         
         let output = try! system.produceOutput(initialElement: LSystemElement("a"), iterations: 5)
         
         XCTAssertEqual(output.iterationsPerformed, 5)
-        XCTAssertEqual(output.currentStringRepresentation, "abbb")
+        XCTAssertEqual(output.string, "abbb")
     }
     
     func testLSystemProducingWithParametric() {
@@ -431,8 +429,9 @@ final class AngeloTests: XCTestCase {
         let output = try! system.produceOutput(initialElement: LSystemElement("a", parameters: ["number": 0]), iterations: 10)
         
         XCTAssertEqual(output.iterationsPerformed, 10)
-        XCTAssertEqual(output.currentStringRepresentation, "acccccbbbbb")
-        XCTAssertEqual(output.currentOutput.first?.getParameter(named: "number") as! Int, 10)
+        XCTAssertEqual(output.string, "acccccbbbbb")
+        XCTAssertEqual(output.outputElements.first?.getParameter(named: "number") as! Int, 10)
+        XCTAssertEqual(output.stringWithParameters, "a(number;10)cccccb(humour;40)b(humour;30)b(humour;20)b(humour;10)b(humour;0)")
     }
     
     func testLSystemProducingAlgae() {
@@ -444,22 +443,22 @@ final class AngeloTests: XCTestCase {
         var output = try! system.produceOutput(initialElementString: "a", iterations: 1)
         
         XCTAssertEqual(output.iterationsPerformed, 1)
-        XCTAssertEqual(output.currentStringRepresentation, "ab")
+        XCTAssertEqual(output.string, "ab")
         
         output = try! system.iterate(input: output)
         
         XCTAssertEqual(output.iterationsPerformed, 2)
-        XCTAssertEqual(output.currentStringRepresentation, "aba")
+        XCTAssertEqual(output.string, "aba")
         
         output = try! system.iterate(input: output)
         
         XCTAssertEqual(output.iterationsPerformed, 3)
-        XCTAssertEqual(output.currentStringRepresentation, "abaab")
+        XCTAssertEqual(output.string, "abaab")
         
         output = try! system.iterate(input: output)
         
         XCTAssertEqual(output.iterationsPerformed, 4)
-        XCTAssertEqual(output.currentStringRepresentation, "abaababa")
+        XCTAssertEqual(output.string, "abaababa")
     }
     
     

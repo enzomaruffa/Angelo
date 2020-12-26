@@ -31,6 +31,33 @@ class LSystemElement {
         guard let parameters = parameters else { return nil }
         return parameters.keys.map({ $0 })
     }
+    
+    func stringWithParameters(startDelimiter: String, separator: String, endDelimiter: String) -> String {
+        guard let parameterKeys = parameterKeys() else {
+            return string
+        }
+        
+        guard !parameterKeys.compactMap({ getParameter(named: $0) as? CustomStringConvertible }).isEmpty else {
+            return string
+        }
+        
+        var returnString = string + startDelimiter
+        
+        for key in parameterKeys {
+            guard let convertible = getParameter(named: key) as? CustomStringConvertible else { continue }
+            returnString += key
+            returnString += separator
+            returnString += convertible.description
+            
+            if key != parameterKeys.last {
+                returnString += separator
+            }
+        }
+        
+        returnString += endDelimiter
+        
+        return returnString
+    }
 }
 
 extension LSystemElement: Equatable {

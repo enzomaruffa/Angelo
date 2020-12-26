@@ -10,8 +10,22 @@ import Foundation
 class LSystemOutput {
     let initialElement: LSystemElement
     
-    var iterationsPerformed = 0
-    var currentOutput: [LSystemElement] = []
+    internal var iterationsPerformed = 0
+    var outputElements: [LSystemElement] = []
+    
+    var parameterSeparator = ";"
+    var parameterStartDelimiter = "("
+    var parameterEndDelimiter = ")"
+    
+    var stringWithParameters: String {
+        outputElements
+            .map { $0.stringWithParameters(
+                    startDelimiter: parameterStartDelimiter,
+                    separator: parameterSeparator,
+                    endDelimiter: parameterEndDelimiter)
+                }
+            .joined(separator: "")
+    }
     
     init(initialElement: LSystemElement) {
         self.initialElement = initialElement
@@ -23,7 +37,7 @@ extension LSystemOutput: LSystemRuleContextAwareSource {
         iterationsPerformed
     }
     
-    var currentStringRepresentation: String {
-        currentOutput.map { $0.string }.joined(separator: "")
+    var string: String {
+        outputElements.map { $0.string }.joined(separator: "")
     }
 }

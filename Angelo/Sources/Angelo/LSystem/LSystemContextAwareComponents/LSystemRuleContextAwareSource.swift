@@ -9,5 +9,5 @@ import Foundation
 
 protocol LSystemRuleContextAwareSource: class {
     var iterations: Int { get }
-    var currentStringRepresentation: String { get }
+    var string: String { get }
 }
