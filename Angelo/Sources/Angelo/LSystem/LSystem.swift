@@ -37,9 +37,9 @@ class LSystem {
         add(transition: transition)
     }
     
-    internal func getAvailableRules(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource?) throws -> [LSystemRule] {
-        let availableRules = try rules.filter { (rule) -> Bool in
-            try rule.isValid(forInputElement: inputElement, contextAwareComponentSource: contextAwareComponentSource)
+    internal func getAvailableRules(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource?) -> [LSystemRule] {
+        let availableRules = rules.filter { (rule) -> Bool in
+            rule.isValid(forInputElement: inputElement, contextAwareComponentSource: contextAwareComponentSource)
         }
         return availableRules
     }
@@ -51,25 +51,25 @@ class LSystem {
         var outputs = [LSystemElement]()
         
         for element in input.currentOutput {
-            let availableRules = try getAvailableRules(forInputElement: element, contextAwareComponentSource: input)
+            let availableRules = getAvailableRules(forInputElement: element, contextAwareComponentSource: input)
             
             let list = WeightedList<LSystemRule>()
             try availableRules.forEach { (rule) in
                 try list.add(rule, weight: rule.weight)
             }
             
-            guard let selectedRule = list.randomElement() else {
-                switch noRuleBehavior {
-                case .keep:
-                    outputs.append(element)
-                    continue
-                case .remove:
-                    continue
-                }
+            if let selectedRule = list.randomElement() {
+                let ruleOutputs = selectedRule.apply(inputElement: element, transitions: transitions)
+                outputs.append(contentsOf: ruleOutputs)
+                continue
             }
-            
-            let ruleOutputs = try selectedRule.apply(inputElement: element, transitions: transitions)
-            outputs.append(contentsOf: ruleOutputs)
+        
+            switch noRuleBehavior {
+            case .keep:
+                outputs.append(element)
+            case .remove:
+                break
+            }
         }
         
         output.currentOutput = outputs
@@ -98,6 +98,5 @@ enum LSystemNoRuleBehavior {
 }
 
 enum LSystemErrors: Error {
-    case InvalidRuleApplication
-    case NoAvailableTransition
+    case RuleWithInvalidWeight
 }

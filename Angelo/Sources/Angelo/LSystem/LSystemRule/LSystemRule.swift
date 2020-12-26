@@ -19,55 +19,47 @@ class LSystemRule {
     let canApplyByParameters: ParametericFunction
     let canApplyByContext: ContextAwareFunction
     
-    convenience init(input: String, output: String) {
-        self.init(input: input, outputs: [output])
+    convenience init(input: String, output: String) throws {
+        try self.init(input: input, outputs: [output])
     }
     
-    convenience init(input: String, outputs: [String]) {
-        self.init(input: input, outputs: outputs, weight: 1)
+    convenience init(input: String, outputs: [String]) throws {
+        try self.init(input: input, outputs: outputs, weight: 1)
     }
     
-    convenience init(input: String, output: String, weight: Double) {
-        self.init(input: input, outputs: [output], weight: weight)
+    convenience init(input: String, output: String, weight: Double) throws {
+        try self.init(input: input, outputs: [output], weight: weight)
     }
     
-    init(input: String, outputs: [String], weight: Double) {
-        self.input = input
-        self.outputs = outputs
-        self.weight = weight
-        self.canApplyByParameters = nil
-        self.canApplyByContext = nil
+    convenience init(input: String, outputs: [String], weight: Double) throws {
+        try self.init(input: input, outputs: outputs, weight: weight, canApplyByParameters: nil, canApplyByContext: nil)
     }
     
-    convenience init(input: String, output: String, weight: Double, canApplyByParameters: ParametericFunction) {
-        self.init(input: input, outputs: [output], weight: weight, canApplyByParameters: canApplyByParameters)
+    convenience init(input: String, output: String, weight: Double, canApplyByParameters: ParametericFunction) throws {
+        try self.init(input: input, outputs: [output], weight: weight, canApplyByParameters: canApplyByParameters)
     }
     
-    init(input: String, outputs: [String], weight: Double, canApplyByParameters: ParametericFunction) {
-        self.input = input
-        self.outputs = outputs
-        self.weight = weight
-        self.canApplyByParameters = canApplyByParameters
-        self.canApplyByContext = nil
+    convenience init(input: String, outputs: [String], weight: Double, canApplyByParameters: ParametericFunction) throws {
+        try self.init(input: input, outputs: outputs, weight: weight, canApplyByParameters: canApplyByParameters, canApplyByContext: nil)
     }
     
-    convenience init(input: String, output: String, weight: Double, canApplyByContext: ContextAwareFunction) {
-        self.init(input: input, outputs: [output], weight: weight, canApplyByContext: canApplyByContext)
+    convenience init(input: String, output: String, weight: Double, canApplyByContext: ContextAwareFunction) throws {
+        try self.init(input: input, outputs: [output], weight: weight, canApplyByContext: canApplyByContext)
     }
     
-    init(input: String, outputs: [String], weight: Double, canApplyByContext: ContextAwareFunction) {
-        self.input = input
-        self.outputs = outputs
-        self.weight = weight
-        self.canApplyByParameters = nil
-        self.canApplyByContext = canApplyByContext
+    convenience init(input: String, outputs: [String], weight: Double, canApplyByContext: ContextAwareFunction) throws {
+        try self.init(input: input, outputs: outputs, weight: weight, canApplyByParameters: nil, canApplyByContext: canApplyByContext)
     }
     
-    convenience init(input: String, output: String, weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) {
-        self.init(input: input, outputs: [output], weight: weight, canApplyByParameters: canApplyByParameters, canApplyByContext: canApplyByContext)
+    convenience init(input: String, output: String, weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) throws {
+        try self.init(input: input, outputs: [output], weight: weight, canApplyByParameters: canApplyByParameters, canApplyByContext: canApplyByContext)
     }
     
-    init(input: String, outputs: [String], weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) {
+    init(input: String, outputs: [String], weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) throws {
+        guard weight > 0 else {
+            throw LSystemErrors.RuleWithInvalidWeight
+        }
+        
         self.input = input
         self.outputs = outputs
         self.weight = weight
@@ -75,7 +67,7 @@ class LSystemRule {
         self.canApplyByContext = canApplyByContext
     }
     
-    func isValid(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource? = nil) throws -> Bool {
+    func isValid(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource? = nil) -> Bool {
         if inputElement.string != input {
             return false
         }
@@ -95,19 +87,14 @@ class LSystemRule {
         return true
     }
     
-    func apply(inputElement: LSystemElement) throws -> [LSystemElement] {
-        return try apply(inputElement: inputElement, transitions: [])
+    func apply(inputElement: LSystemElement) -> [LSystemElement] {
+        return apply(inputElement: inputElement, transitions: [])
     }
     
-    func apply(inputElement: LSystemElement, transitions: [LSystemParametersTransition]) throws -> [LSystemElement] {
-        
-        if !(try isValid(forInputElement: inputElement)) {
-            throw LSystemErrors.InvalidRuleApplication
-        }
+    func apply(inputElement: LSystemElement, transitions: [LSystemParametersTransition])  -> [LSystemElement] {
         
         var outputs = [LSystemElement]()
         for output in self.outputs {
-            
             if let firstValidTransition =
                 transitions.first(where: {
                                     $0.isValid(

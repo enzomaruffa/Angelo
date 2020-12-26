@@ -198,7 +198,7 @@ final class AngeloTests: XCTestCase {
     
     // LSystemRule tests
     func testLSystemRuleCreationSucceeds() {
-        let rule = LSystemRule(input: "a", output: "b")
+        let rule = try! LSystemRule(input: "a", output: "b")
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
@@ -208,13 +208,18 @@ final class AngeloTests: XCTestCase {
         XCTAssertNil(rule.canApplyByContext)
     }
     
+    func testLSystemRuleCreationThrows() {
+        XCTAssertThrowsError(try LSystemRule(input: "a", output: "b", weight: -1))
+        XCTAssertThrowsError(try LSystemRule(input: "a", output: "b", weight: 0))
+    }
+    
     func testLSystemRuleCreationWithParametricComponent() {
         let canApplyByParameters: (([String: Any]) -> Bool) = { (parameters) -> Bool in
             let weight = parameters["weight"] as! Int
             return weight > 5
         }
         
-        let rule = LSystemRule(input: "a", output: "b", weight: 1, canApplyByParameters: canApplyByParameters)
+        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, canApplyByParameters: canApplyByParameters)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
@@ -229,7 +234,7 @@ final class AngeloTests: XCTestCase {
             true
         }
         
-        let rule = LSystemRule(input: "a", output: "b", weight: 1, canApplyByContext: canApplyByContext)
+        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, canApplyByContext: canApplyByContext)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
@@ -249,7 +254,7 @@ final class AngeloTests: XCTestCase {
             true
         }
         
-        let rule = LSystemRule(input: "a", output: "b", weight: 1, canApplyByParameters: canApplyByParameters, canApplyByContext: canApplyByContext)
+        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, canApplyByParameters: canApplyByParameters, canApplyByContext: canApplyByContext)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
@@ -260,10 +265,10 @@ final class AngeloTests: XCTestCase {
     }
     
     func testLSystemRuleValid() {
-        let rule = LSystemRule(input: "a", output: "b")
+        let rule = try! LSystemRule(input: "a", output: "b")
         
-        XCTAssertTrue(try! rule.isValid(forInputElement: LSystemElement("a")))
-        XCTAssertFalse(try! rule.isValid(forInputElement: LSystemElement("b")))
+        XCTAssertTrue(rule.isValid(forInputElement: LSystemElement("a")))
+        XCTAssertFalse(rule.isValid(forInputElement: LSystemElement("b")))
     }
     
     // With parametric component to test if returns as valid
@@ -276,23 +281,23 @@ final class AngeloTests: XCTestCase {
         let parameters = ["weight": 20]
         let inputElement = LSystemElement("a", parameters: parameters)
         
-        let rule = LSystemRule(input: inputElement.string, output: "b", weight: 1, canApplyByParameters: canApplyByParameters)
+        let rule = try! LSystemRule(input: inputElement.string, output: "b", weight: 1, canApplyByParameters: canApplyByParameters)
         
         let parameters2 = ["weight": 1]
         let inputElement2 = LSystemElement("a", parameters: parameters2)
         
-        XCTAssertTrue(try! rule.isValid(forInputElement: inputElement))
-        XCTAssertFalse(try! rule.isValid(forInputElement: inputElement2))
+        XCTAssertTrue(rule.isValid(forInputElement: inputElement))
+        XCTAssertFalse(rule.isValid(forInputElement: inputElement2))
     }
     
     // Rule with no components
     func testLSystemRuleSimpleApply() {
-        let rule = LSystemRule(input: "a", output: "b")
+        let rule = try! LSystemRule(input: "a", output: "b")
         let input = LSystemElement("a")
         
-        XCTAssertTrue(try! rule.isValid(forInputElement: input))
+        XCTAssertTrue(rule.isValid(forInputElement: input))
         
-        let outputs = try! rule.apply(inputElement: input)
+        let outputs = rule.apply(inputElement: input)
         
         XCTAssertEqual(1, outputs.count)
         XCTAssertNotNil(outputs.first)
@@ -301,7 +306,7 @@ final class AngeloTests: XCTestCase {
     
     // Rule with parametric components
     func testLSystemRuleSimpleApplyWithParameters() {
-        let rule = LSystemRule(input: "a", output: "b")
+        let rule = try! LSystemRule(input: "a", output: "b")
         
         let transition = LSystemParametersTransition(
             referenceInputString: "a",
@@ -313,9 +318,9 @@ final class AngeloTests: XCTestCase {
         
         let input = LSystemElement("a", parameters: ["height": 1])
         
-        XCTAssertTrue(try! rule.isValid(forInputElement: input))
+        XCTAssertTrue(rule.isValid(forInputElement: input))
         
-        let outputs = try! rule.apply(inputElement: input, transitions: [transition])
+        let outputs = rule.apply(inputElement: input, transitions: [transition])
         let referenceOutput = LSystemElement("b", parameters: ["weight": 10])
         
         XCTAssertEqual(1, outputs.count)
@@ -330,7 +335,7 @@ final class AngeloTests: XCTestCase {
         XCTAssertEqual(0, system.rules.count)
         XCTAssertEqual(0, system.transitions.count)
         
-        let rule = LSystemRule(
+        let rule = try! LSystemRule(
             input: "a",
             output: "b"
         )
@@ -351,9 +356,9 @@ final class AngeloTests: XCTestCase {
     }
     
     func testLSystemSimpleCreation() {
-        let rule1 = LSystemRule(input: "a", outputs: ["a", "b"])
-        let rule2 = LSystemRule(input: "a", outputs: ["a", "c"])
-        let rule3 = LSystemRule(input: "b", outputs: ["d", "b"])
+        let rule1 = try! LSystemRule(input: "a", outputs: ["a", "b"])
+        let rule2 = try! LSystemRule(input: "a", outputs: ["a", "c"])
+        let rule3 = try! LSystemRule(input: "b", outputs: ["d", "b"])
         
         let system = LSystem(rules: [rule1, rule2, rule3], transitions: [])
         
@@ -363,7 +368,7 @@ final class AngeloTests: XCTestCase {
     func testLSystemProducing() {
         let system = LSystem()
         
-        system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
+        try! system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
         
         let output = try! system.produceOutput(initialElement: LSystemElement("a"), iterations: 5)
         
@@ -374,7 +379,7 @@ final class AngeloTests: XCTestCase {
     func testLSystemProducingWithContextAware() {
         let system = LSystem()
         
-        let rule = LSystemRule(
+        let rule = try! LSystemRule(
             input: "a",
             outputs: ["a", "b"],
             weight: 1,
@@ -392,7 +397,7 @@ final class AngeloTests: XCTestCase {
     func testLSystemProducingWithParametric() {
         let system = LSystem()
         
-        let rule = LSystemRule(
+        let rule = try! LSystemRule(
             input: "a",
             outputs: ["a", "b"],
             weight: 1,
@@ -401,7 +406,7 @@ final class AngeloTests: XCTestCase {
                 return number < 5
             })
         
-        let rule2 = LSystemRule(
+        let rule2 = try! LSystemRule(
             input: "a",
             outputs: ["a", "c"],
             weight: 1,
@@ -433,8 +438,8 @@ final class AngeloTests: XCTestCase {
     func testLSystemProducingAlgae() {
         let system = LSystem()
         
-        system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
-        system.add(rule: LSystemRule(input: "b", output: "a"))
+        try! system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
+        try! system.add(rule: LSystemRule(input: "b", output: "a"))
     
         var output = try! system.produceOutput(initialElementString: "a", iterations: 1)
         
