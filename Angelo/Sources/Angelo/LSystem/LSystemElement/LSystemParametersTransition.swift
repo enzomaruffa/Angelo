@@ -17,8 +17,8 @@ struct LSystemParametersTransition {
             && output == referenceOutputString
     }
     
-    func performTransition(input: LSystemElement) -> LSystemElement {
-        guard let parameters = input.parameters else {
+    func performTransition(inputElement: LSystemElement) -> LSystemElement {
+        guard let parameters = inputElement.parameters else {
             return LSystemElement(referenceOutputString)
         }
         

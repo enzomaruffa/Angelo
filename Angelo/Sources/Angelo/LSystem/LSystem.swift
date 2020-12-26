@@ -46,8 +46,8 @@ class LSystem {
         return availableRules
     }
     
-    func iterate(input: LSystemOutput) throws ->  LSystemOutput {
-        let output = LSystemOutput(initialElement: input.initialElement)
+    func iterate(input: LSystemResult) throws ->  LSystemResult {
+        let output = LSystemResult(initialElement: input.inputElement)
         output.iterationsPerformed = input.iterationsPerformed + 1
         
         var outputs = [LSystemElement]()
@@ -78,13 +78,13 @@ class LSystem {
         return output
     }
     
-    func produceOutput(initialElementString: String, iterations: Int)  throws -> LSystemOutput {
-        return try produceOutput(initialElement: LSystemElement(initialElementString), iterations: iterations)
+    func produceOutput(input: String, iterations: Int)  throws -> LSystemResult {
+        return try produceOutput(inputElement: LSystemElement(input), iterations: iterations)
     }
     
-    func produceOutput(initialElement: LSystemElement, iterations: Int)  throws -> LSystemOutput {
-        var output = LSystemOutput(initialElement: initialElement)
-        output.outputElements = [initialElement]
+    func produceOutput(inputElement: LSystemElement, iterations: Int)  throws -> LSystemResult {
+        var output = LSystemResult(initialElement: inputElement)
+        output.outputElements = [inputElement]
         
         for _ in 0..<iterations {
             output = try iterate(input: output)

@@ -7,8 +7,8 @@
 
 import Foundation
 
-class LSystemOutput {
-    let initialElement: LSystemElement
+class LSystemResult {
+    let inputElement: LSystemElement
     
     internal var iterationsPerformed = 0
     var outputElements: [LSystemElement] = []
@@ -28,11 +28,11 @@ class LSystemOutput {
     }
     
     init(initialElement: LSystemElement) {
-        self.initialElement = initialElement
+        self.inputElement = initialElement
     }
 }
 
-extension LSystemOutput: LSystemRuleContextAwareSource {
+extension LSystemResult: LSystemRuleContextAwareSource {
     var iterations: Int {
         iterationsPerformed
     }

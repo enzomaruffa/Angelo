@@ -175,7 +175,7 @@ final class AngeloTests: XCTestCase {
             return ["int": number]
         }
         
-        XCTAssertEqual(output, elementTransition.performTransition(input: input))
+        XCTAssertEqual(output, elementTransition.performTransition(inputElement: input))
     }
     
     func testLSystemElementTransitionResult2() {
@@ -189,8 +189,8 @@ final class AngeloTests: XCTestCase {
             return newParameters
         }
         
-        XCTAssertEqual(output, elementTransition.performTransition(input: input))
-        XCTAssertEqual(10, elementTransition.performTransition(input: input).getParameter(named: "weight") as! Int)
+        XCTAssertEqual(output, elementTransition.performTransition(inputElement: input))
+        XCTAssertEqual(10, elementTransition.performTransition(inputElement: input).getParameter(named: "weight") as! Int)
     }
     
     
@@ -202,8 +202,8 @@ final class AngeloTests: XCTestCase {
         XCTAssertNotNil(rule.input)
         XCTAssertEqual(rule.outputs.count, 1)
         XCTAssertEqual(rule.weight, 1)
-        XCTAssertNil(rule.canApplyByParameters)
-        XCTAssertNil(rule.canApplyByContext)
+        XCTAssertNil(rule.parameterCheck)
+        XCTAssertNil(rule.contextAwareCheck)
     }
     
     func testLSystemRuleCreationThrows() {
@@ -212,54 +212,54 @@ final class AngeloTests: XCTestCase {
     }
     
     func testLSystemRuleCreationWithParametricComponent() {
-        let canApplyByParameters: (([String: Any]) -> Bool) = { (parameters) -> Bool in
+        let parameterCheck: (([String: Any]) -> Bool) = { (parameters) -> Bool in
             let weight = parameters["weight"] as! Int
             return weight > 5
         }
         
-        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, canApplyByParameters: canApplyByParameters)
+        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, parameterCheck: parameterCheck)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
         XCTAssertEqual(rule.outputs.count, 1)
         XCTAssertEqual(rule.weight, 1)
-        XCTAssertNotNil(rule.canApplyByParameters)
-        XCTAssertNil(rule.canApplyByContext)
+        XCTAssertNotNil(rule.parameterCheck)
+        XCTAssertNil(rule.contextAwareCheck)
     }
     
     func testLSystemRuleCreationWithContextAwareComponent() {
-        let canApplyByContext: ((LSystemRuleContextAwareSource, Int) -> Bool) = { (source, index) -> Bool in
+        let contextAwareCheck: ((LSystemRuleContextAwareSource, Int) -> Bool) = { (source, index) -> Bool in
             true
         }
         
-        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, canApplyByContext: canApplyByContext)
+        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, contextAwareCheck: contextAwareCheck)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
         XCTAssertEqual(rule.outputs.count, 1)
         XCTAssertEqual(rule.weight, 1)
-        XCTAssertNil(rule.canApplyByParameters)
-        XCTAssertNotNil(rule.canApplyByContext)
+        XCTAssertNil(rule.parameterCheck)
+        XCTAssertNotNil(rule.contextAwareCheck)
     }
     
     func testLSystemRuleFullCreation() {
-        let canApplyByParameters: (([String: Any]) -> Bool) = { (parameters) -> Bool in
+        let parameterCheck: (([String: Any]) -> Bool) = { (parameters) -> Bool in
             let weight = parameters["weight"] as! Int
             return weight > 5
         }
         
-        let canApplyByContext: ((LSystemRuleContextAwareSource, Int) -> Bool) = { (source, index) -> Bool in
+        let contextAwareCheck: ((LSystemRuleContextAwareSource, Int) -> Bool) = { (source, index) -> Bool in
             true
         }
         
-        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, canApplyByParameters: canApplyByParameters, canApplyByContext: canApplyByContext)
+        let rule = try! LSystemRule(input: "a", output: "b", weight: 1, parameterCheck: parameterCheck, contextAwareCheck: contextAwareCheck)
         
         XCTAssertNotNil(rule)
         XCTAssertNotNil(rule.input)
         XCTAssertEqual(rule.outputs.count, 1)
         XCTAssertEqual(rule.weight, 1)
-        XCTAssertNotNil(rule.canApplyByParameters)
-        XCTAssertNotNil(rule.canApplyByContext)
+        XCTAssertNotNil(rule.parameterCheck)
+        XCTAssertNotNil(rule.contextAwareCheck)
     }
     
     func testLSystemRuleValid() {
@@ -271,7 +271,7 @@ final class AngeloTests: XCTestCase {
     
     // With parametric component to test if returns as valid
     func testLSystemRuleParametricValid() {
-        let canApplyByParameters: (([String: Any]) -> Bool) = { (parameters) -> Bool in
+        let parameterCheck: (([String: Any]) -> Bool) = { (parameters) -> Bool in
             let weight = parameters["weight"] as! Int
             return weight > 5
         }
@@ -279,7 +279,7 @@ final class AngeloTests: XCTestCase {
         let parameters = ["weight": 20]
         let inputElement = LSystemElement("a", parameters: parameters)
         
-        let rule = try! LSystemRule(input: inputElement.string, output: "b", weight: 1, canApplyByParameters: canApplyByParameters)
+        let rule = try! LSystemRule(input: inputElement.string, output: "b", weight: 1, parameterCheck: parameterCheck)
         
         let parameters2 = ["weight": 1]
         let inputElement2 = LSystemElement("a", parameters: parameters2)
@@ -368,7 +368,7 @@ final class AngeloTests: XCTestCase {
         
         try! system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
         
-        let output = try! system.produceOutput(initialElement: LSystemElement("a"), iterations: 5)
+        let output = try! system.produceOutput(inputElement: LSystemElement("a"), iterations: 5)
         
         XCTAssertEqual(output.iterationsPerformed, 5)
         XCTAssertEqual(output.string, "abbbbb")
@@ -381,12 +381,12 @@ final class AngeloTests: XCTestCase {
             input: "a",
             outputs: ["a", "b"],
             weight: 1,
-            canApplyByContext: { (source, index) -> Bool in
+            contextAwareCheck: { (source, index) -> Bool in
                 source.string.filter({$0 == "b"}).count < 3
             })
         system.add(rule: rule)
         
-        let output = try! system.produceOutput(initialElement: LSystemElement("a"), iterations: 5)
+        let output = try! system.produceOutput(inputElement: LSystemElement("a"), iterations: 5)
         
         XCTAssertEqual(output.iterationsPerformed, 5)
         XCTAssertEqual(output.string, "abbb")
@@ -399,7 +399,7 @@ final class AngeloTests: XCTestCase {
             input: "a",
             outputs: ["a", "b"],
             weight: 1,
-            canApplyByParameters: { (parameters) -> Bool in
+            parameterCheck: { (parameters) -> Bool in
                 let number = parameters["number"] as! Int
                 return number < 5
             })
@@ -408,7 +408,7 @@ final class AngeloTests: XCTestCase {
             input: "a",
             outputs: ["a", "c"],
             weight: 1,
-            canApplyByParameters: { (parameters) -> Bool in
+            parameterCheck: { (parameters) -> Bool in
                 let number = parameters["number"] as! Int
                 return number >= 5
             })
@@ -426,7 +426,7 @@ final class AngeloTests: XCTestCase {
             return ["humour": number*10]
         }
         
-        let output = try! system.produceOutput(initialElement: LSystemElement("a", parameters: ["number": 0]), iterations: 10)
+        let output = try! system.produceOutput(inputElement: LSystemElement("a", parameters: ["number": 0]), iterations: 10)
         
         XCTAssertEqual(output.iterationsPerformed, 10)
         XCTAssertEqual(output.string, "acccccbbbbb")
@@ -440,7 +440,7 @@ final class AngeloTests: XCTestCase {
         try! system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
         try! system.add(rule: LSystemRule(input: "b", output: "a"))
     
-        var output = try! system.produceOutput(initialElementString: "a", iterations: 1)
+        var output = try! system.produceOutput(input: "a", iterations: 1)
         
         XCTAssertEqual(output.iterationsPerformed, 1)
         XCTAssertEqual(output.string, "ab")
