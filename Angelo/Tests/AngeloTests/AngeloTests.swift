@@ -228,7 +228,7 @@ final class AngeloTests: XCTestCase {
     }
     
     func testLSystemRuleCreationWithContextAwareComponent() {
-        let canApplyByContext: ((LSystemRuleContextAwareSource) -> Bool) = { (source) -> Bool in
+        let canApplyByContext: ((LSystemRuleContextAwareSource, Int) -> Bool) = { (source, index) -> Bool in
             true
         }
         
@@ -248,7 +248,7 @@ final class AngeloTests: XCTestCase {
             return weight > 5
         }
         
-        let canApplyByContext: ((LSystemRuleContextAwareSource) -> Bool) = { (source) -> Bool in
+        let canApplyByContext: ((LSystemRuleContextAwareSource, Int) -> Bool) = { (source, index) -> Bool in
             true
         }
         
@@ -265,8 +265,8 @@ final class AngeloTests: XCTestCase {
     func testLSystemRuleValid() {
         let rule = try! LSystemRule(input: "a", output: "b")
         
-        XCTAssertTrue(rule.isValid(forInputElement: LSystemElement("a")))
-        XCTAssertFalse(rule.isValid(forInputElement: LSystemElement("b")))
+        XCTAssertTrue(rule.isValid(forInputElement: LSystemElement("a"), elementIndex: 0))
+        XCTAssertFalse(rule.isValid(forInputElement: LSystemElement("b"), elementIndex: 0))
     }
     
     // With parametric component to test if returns as valid
@@ -284,8 +284,8 @@ final class AngeloTests: XCTestCase {
         let parameters2 = ["weight": 1]
         let inputElement2 = LSystemElement("a", parameters: parameters2)
         
-        XCTAssertTrue(rule.isValid(forInputElement: inputElement))
-        XCTAssertFalse(rule.isValid(forInputElement: inputElement2))
+        XCTAssertTrue(rule.isValid(forInputElement: inputElement, elementIndex: 0))
+        XCTAssertFalse(rule.isValid(forInputElement: inputElement2, elementIndex: 0))
     }
     
     // Rule with no components
@@ -293,7 +293,7 @@ final class AngeloTests: XCTestCase {
         let rule = try! LSystemRule(input: "a", output: "b")
         let input = LSystemElement("a")
         
-        XCTAssertTrue(rule.isValid(forInputElement: input))
+        XCTAssertTrue(rule.isValid(forInputElement: input, elementIndex: 0))
         
         let outputs = rule.apply(inputElement: input)
         
@@ -316,7 +316,7 @@ final class AngeloTests: XCTestCase {
         
         let input = LSystemElement("a", parameters: ["height": 1])
         
-        XCTAssertTrue(rule.isValid(forInputElement: input))
+        XCTAssertTrue(rule.isValid(forInputElement: input, elementIndex: 0))
         
         let outputs = rule.apply(inputElement: input, transitions: [transition])
         let referenceOutput = LSystemElement("b", parameters: ["weight": 10])
@@ -381,7 +381,7 @@ final class AngeloTests: XCTestCase {
             input: "a",
             outputs: ["a", "b"],
             weight: 1,
-            canApplyByContext: { (source) -> Bool in
+            canApplyByContext: { (source, index) -> Bool in
                 source.string.filter({$0 == "b"}).count < 3
             })
         system.add(rule: rule)

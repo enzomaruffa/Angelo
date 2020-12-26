@@ -37,9 +37,11 @@ class LSystem {
         add(transition: transition)
     }
     
-    internal func getAvailableRules(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource?) -> [LSystemRule] {
+    internal func getAvailableRules(forInputElement inputElement: LSystemElement, elementIndex: Int, contextAwareComponentSource: LSystemRuleContextAwareSource?) -> [LSystemRule] {
         let availableRules = rules.filter { (rule) -> Bool in
-            rule.isValid(forInputElement: inputElement, contextAwareComponentSource: contextAwareComponentSource)
+            rule.isValid(forInputElement: inputElement,
+                         elementIndex: elementIndex,
+                         contextAwareComponentSource: contextAwareComponentSource)
         }
         return availableRules
     }
@@ -50,8 +52,8 @@ class LSystem {
         
         var outputs = [LSystemElement]()
         
-        for element in input.outputElements {
-            let availableRules = getAvailableRules(forInputElement: element, contextAwareComponentSource: input)
+        for (index, element) in input.outputElements.enumerated() {
+            let availableRules = getAvailableRules(forInputElement: element, elementIndex: index, contextAwareComponentSource: input)
             
             let list = WeightedList<LSystemRule>()
             try availableRules.forEach { (rule) in

@@ -8,8 +8,8 @@
 import Foundation
 
 class LSystemRule {
-    typealias ParametericFunction = (([String: Any]) -> Bool)?
-    typealias ContextAwareFunction = ((LSystemRuleContextAwareSource) -> Bool)?
+    typealias ParametericFunction = ((_ parameters: [String: Any]) -> Bool)?
+    typealias ContextAwareFunction = ((_ source: LSystemRuleContextAwareSource, _ index: Int) -> Bool)?
     
     let input: String
     let outputs: [String]
@@ -67,7 +67,7 @@ class LSystemRule {
         self.canApplyByContext = canApplyByContext
     }
     
-    func isValid(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource? = nil) -> Bool {
+    func isValid(forInputElement inputElement: LSystemElement, elementIndex: Int, contextAwareComponentSource: LSystemRuleContextAwareSource? = nil) -> Bool {
         if inputElement.string != input {
             return false
         }
@@ -80,7 +80,7 @@ class LSystemRule {
         
         if let canApplyByContext = self.canApplyByContext,
            let source = contextAwareComponentSource,
-           !(canApplyByContext(source)) {
+           !(canApplyByContext(source, elementIndex)) {
             return false
         }
         
