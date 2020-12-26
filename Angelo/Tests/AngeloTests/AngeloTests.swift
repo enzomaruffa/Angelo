@@ -474,6 +474,29 @@ final class AngeloTests: XCTestCase {
         ("testWeightedListRemoveAll", testWeightedListRemoveAll),
         
         // ===== L-System tests
-        
+        ("testLSystemElementCreation", testLSystemElementCreation),
+        ("testLSystemElementParameterCreation", testLSystemElementParameterCreation),
+        ("testLSystemElementEquals", testLSystemElementEquals),
+        ("testLSystemElementDifferent", testLSystemElementDifferent),
+        ("testLSystemElementTransitionCreation", testLSystemElementTransitionCreation),
+        ("testLSystemElementTransitionValid", testLSystemElementTransitionValid),
+        ("testLSystemElementTransitionInvalid", testLSystemElementTransitionInvalid),
+        ("testLSystemElementTransitionResult", testLSystemElementTransitionResult),
+        ("testLSystemElementTransitionResult2", testLSystemElementTransitionResult2),
+        ("testLSystemRuleCreationSucceeds", testLSystemRuleCreationSucceeds),
+        ("testLSystemRuleCreationThrows", testLSystemRuleCreationThrows),
+        ("testLSystemRuleCreationWithParametricComponent", testLSystemRuleCreationWithParametricComponent),
+        ("testLSystemRuleCreationWithContextAwareComponent", testLSystemRuleCreationWithContextAwareComponent),
+        ("testLSystemRuleFullCreation", testLSystemRuleFullCreation),
+        ("testLSystemRuleValid", testLSystemRuleValid),
+        ("testLSystemRuleParametricValid", testLSystemRuleParametricValid),
+        ("testLSystemRuleSimpleApply", testLSystemRuleSimpleApply),
+        ("testLSystemRuleSimpleApplyWithParameters", testLSystemRuleSimpleApplyWithParameters),
+        ("testLSystemCreation", testLSystemCreation),
+        ("testLSystemSimpleCreation", testLSystemSimpleCreation),
+        ("testLSystemProducing", testLSystemProducing),
+        ("testLSystemProducingWithContextAware", testLSystemProducingWithContextAware),
+        ("testLSystemProducingWithParametric", testLSystemProducingWithParametric),
+        ("testLSystemProducingAlgae", testLSystemProducingAlgae)
     ]
 }
