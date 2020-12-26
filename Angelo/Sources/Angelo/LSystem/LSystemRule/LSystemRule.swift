@@ -11,27 +11,27 @@ class LSystemRule {
     typealias ParametericFunction = (([String: Any]) -> Bool)?
     typealias ContextAwareFunction = ((LSystemRuleContextAwareSource) -> Bool)?
     
-    let input: LSystemElement
-    let outputs: [LSystemElement]
+    let input: String
+    let outputs: [String]
     
     let weight: Double
     
     let canApplyByParameters: ParametericFunction
     let canApplyByContext: ContextAwareFunction
     
-    convenience init(input: LSystemElement, output: LSystemElement) {
-        self.init(input: input, outputs: [output], weight: 1)
+    convenience init(input: String, output: String) {
+        self.init(input: input, outputs: [output])
     }
     
-    convenience init(input: LSystemElement, outputs: [LSystemElement]) {
+    convenience init(input: String, outputs: [String]) {
         self.init(input: input, outputs: outputs, weight: 1)
     }
     
-    convenience init(input: LSystemElement, output: LSystemElement, weight: Double) {
+    convenience init(input: String, output: String, weight: Double) {
         self.init(input: input, outputs: [output], weight: weight)
     }
     
-    init(input: LSystemElement, outputs: [LSystemElement], weight: Double) {
+    init(input: String, outputs: [String], weight: Double) {
         self.input = input
         self.outputs = outputs
         self.weight = weight
@@ -39,11 +39,11 @@ class LSystemRule {
         self.canApplyByContext = nil
     }
     
-    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, canApplyByParameters: ParametericFunction) {
+    convenience init(input: String, output: String, weight: Double, canApplyByParameters: ParametericFunction) {
         self.init(input: input, outputs: [output], weight: weight, canApplyByParameters: canApplyByParameters)
     }
     
-    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, canApplyByParameters: ParametericFunction) {
+    init(input: String, outputs: [String], weight: Double, canApplyByParameters: ParametericFunction) {
         self.input = input
         self.outputs = outputs
         self.weight = weight
@@ -51,11 +51,11 @@ class LSystemRule {
         self.canApplyByContext = nil
     }
     
-    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, canApplyByContext: ContextAwareFunction) {
+    convenience init(input: String, output: String, weight: Double, canApplyByContext: ContextAwareFunction) {
         self.init(input: input, outputs: [output], weight: weight, canApplyByContext: canApplyByContext)
     }
     
-    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, canApplyByContext: ContextAwareFunction) {
+    init(input: String, outputs: [String], weight: Double, canApplyByContext: ContextAwareFunction) {
         self.input = input
         self.outputs = outputs
         self.weight = weight
@@ -63,11 +63,11 @@ class LSystemRule {
         self.canApplyByContext = canApplyByContext
     }
     
-    convenience init(input: LSystemElement, output: LSystemElement, weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) {
+    convenience init(input: String, output: String, weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) {
         self.init(input: input, outputs: [output], weight: weight, canApplyByParameters: canApplyByParameters, canApplyByContext: canApplyByContext)
     }
     
-    init(input: LSystemElement, outputs: [LSystemElement], weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) {
+    init(input: String, outputs: [String], weight: Double, canApplyByParameters: ParametericFunction, canApplyByContext: ContextAwareFunction) {
         self.input = input
         self.outputs = outputs
         self.weight = weight
@@ -76,7 +76,7 @@ class LSystemRule {
     }
     
     func isValid(forInputElement inputElement: LSystemElement, contextAwareComponentSource: LSystemRuleContextAwareSource? = nil) throws -> Bool {
-        if inputElement != input {
+        if inputElement.string != input {
             return false
         }
         
@@ -112,11 +112,11 @@ class LSystemRule {
                 transitions.first(where: {
                                     $0.isValid(
                                         forInput: inputElement.string,
-                                        output: output.string)})
+                                        output: output)})
             {
                 outputs.append(firstValidTransition.performTransition(input: inputElement))
             } else {
-                outputs.append(LSystemElement(output.string))
+                outputs.append(LSystemElement(output))
             }
         }
         

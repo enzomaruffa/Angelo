@@ -26,28 +26,6 @@ class LSystem {
         rules.append(rule)
     }
     
-    func addRule(input: String, output: String) {
-        let rule = LSystemRule(input: LSystemElement(input), output: LSystemElement(output))
-        add(rule: rule)
-    }
-    
-    func addRule(input: String, output: String, weight: Double) {
-        let rule = LSystemRule(input: LSystemElement(input), output: LSystemElement(output), weight: weight)
-        add(rule: rule)
-    }
-    
-    func addRule(input: String, outputs: [String]) {
-        let outputsElements = outputs.map({ LSystemElement($0) })
-        let rule = LSystemRule(input: LSystemElement(input), outputs: outputsElements)
-        add(rule: rule)
-    }
-    
-    func addRule(input: String, outputs: [String], weight: Double) {
-        let outputsElements = outputs.map({ LSystemElement($0) })
-        let rule = LSystemRule(input: LSystemElement(input), outputs: outputsElements, weight: weight)
-        add(rule: rule)
-    }
-    
     func add(transition: LSystemParametersTransition) {
         transitions.append(transition)
     }
@@ -96,6 +74,10 @@ class LSystem {
         
         output.currentOutput = outputs
         return output
+    }
+    
+    func produceOutput(initialElementString: String, iterations: Int)  throws -> LSystemOutput {
+        return try produceOutput(initialElement: LSystemElement(initialElementString), iterations: iterations)
     }
     
     func produceOutput(initialElement: LSystemElement, iterations: Int)  throws -> LSystemOutput {
