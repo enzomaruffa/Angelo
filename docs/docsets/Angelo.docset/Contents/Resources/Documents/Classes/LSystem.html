@@ -14,7 +14,7 @@
     <a title="LSystem Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Angelo - Procedural Generation Library</a> (19% documented)</p>
+        <p><a href="../index.html">Angelo - Procedural Generation Library</a> (92% documented)</p>
         <p class="header-right"><a href="https://github.com/enzomaruffa/Angelo"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -90,7 +90,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>An L-System that supports both basic L-Systems  as well as rules with weights and checks and elements with parameters</p>
 
           </section>
           <section class="section task-group-section">
@@ -109,7 +109,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The current rules this <code>LSystem</code> will use when transforming a <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code></p>
 
                       </div>
                       <div class="declaration">
@@ -136,7 +136,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The transitions this <code>LSystem</code> can use when applying rules</p>
 
                       </div>
                       <div class="declaration">
@@ -163,7 +163,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>How the <code>LSystem</code> should behave when no rules are available for an input element</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    Defaults to .keep
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -190,7 +195,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Creates a new <code>LSystem</code></p>
 
                       </div>
                       <div class="declaration">
@@ -200,6 +205,37 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">rules</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Classes/LSystemRule.html">LSystemRule</a></span><span class="p">],</span> <span class="nv">transitions</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/LSystemParametersTransition.html">LSystemParametersTransition</a></span><span class="p">])</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rules</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The rules this <code>LSystem</code> uses</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transitions</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The transitions this <code>LSystem</code> uses</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -217,7 +253,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Creates an empty <code>LSystem</code></p>
 
                       </div>
                       <div class="declaration">
@@ -244,7 +280,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds a rule into the <code>LSystem</code></p>
 
                       </div>
                       <div class="declaration">
@@ -254,6 +290,25 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nv">rule</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html">LSystemRule</a></span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>rule</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The rule to be added</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -271,7 +326,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds a transition into the <code>LSystem</code></p>
 
                       </div>
                       <div class="declaration">
@@ -281,6 +336,25 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nv">transition</span><span class="p">:</span> <span class="kt"><a href="../Structs/LSystemParametersTransition.html">LSystemParametersTransition</a></span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transition</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The transition to be added</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -298,7 +372,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Gets all rules that are available for a specific input element</p>
 
                       </div>
                       <div class="declaration">
@@ -308,6 +382,53 @@
                           <pre class="highlight swift"><code><span class="kd">internal</span> <span class="kd">func</span> <span class="nf">getAvailableRules</span><span class="p">(</span><span class="n">forInputElement</span> <span class="nv">inputElement</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span><span class="p">,</span> <span class="nv">elementIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">contextAwareComponentSource</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LSystemRuleContextAwareSource.html">LSystemRuleContextAwareSource</a></span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/LSystemRule.html">LSystemRule</a></span><span class="p">]</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inputElement</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input element to use when checking if a rule is valid</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>elementIndex</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The index of the <code>inputElement</code> in the current <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>contextAwareComponentSource</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The source that context-aware checks should use</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A list of rules that are available for the conditions above</p>
                       </div>
                     </section>
                   </div>
@@ -325,7 +446,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Applies an iteration into an <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code></p>
 
                       </div>
                       <div class="declaration">
@@ -335,6 +456,29 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">iterate</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemResult.html">LSystemResult</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/LSystemResult.html">LSystemResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code> that will be iterated on the current <code>LSystem</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A new <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code> after one iteration</p>
                       </div>
                     </section>
                   </div>
@@ -352,7 +496,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Produces an <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code> based on a input string and a set number of iterations</p>
 
                       </div>
                       <div class="declaration">
@@ -362,6 +506,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">produceOutput</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">iterations</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/LSystemResult.html">LSystemResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input the <code>LSystem</code> will use</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>iterations</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The amount of iterations that should be performed</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code> based on the input and amount of iterations</p>
                       </div>
                     </section>
                   </div>
@@ -379,7 +558,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Produces an <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code> based on a input element (which might have parameters) and a set number of iterations</p>
 
                       </div>
                       <div class="declaration">
@@ -389,6 +568,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">produceOutput</span><span class="p">(</span><span class="nv">inputElement</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span><span class="p">,</span> <span class="nv">iterations</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/LSystemResult.html">LSystemResult</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inputElement</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input element that will be used</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>iterations</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The amount of iterations that should be performed</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>An <code><a href="../Classes/LSystemResult.html">LSystemResult</a></code> based on the input and amount of iterations</p>
                       </div>
                     </section>
                   </div>

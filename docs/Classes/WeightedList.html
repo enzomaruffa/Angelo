@@ -14,7 +14,7 @@
     <a title="WeightedList Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Angelo - Procedural Generation Library</a> (19% documented)</p>
+        <p><a href="../index.html">Angelo - Procedural Generation Library</a> (92% documented)</p>
         <p class="header-right"><a href="https://github.com/enzomaruffa/Angelo"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -90,7 +90,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A list in which elements can have different weights</p>
 
           </section>
           <section class="section task-group-section">
@@ -109,7 +109,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The count of elements in the list</p>
 
                       </div>
                       <div class="declaration">
@@ -136,7 +136,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A <code>Bool</code> that returns if the list is empty</p>
 
                       </div>
                       <div class="declaration">
@@ -163,7 +163,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The sum of the weight of all elements in th list</p>
 
                       </div>
                       <div class="declaration">
@@ -190,7 +190,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The list of elements with its respective weights</p>
 
                       </div>
                       <div class="declaration">
@@ -217,7 +217,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Creates an empty list</p>
 
                       </div>
                       <div class="declaration">
@@ -244,7 +244,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Sorts the internal elements list by weight</p>
 
                       </div>
                       <div class="declaration">
@@ -271,7 +271,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds a new element into the <code>WeightedList</code></p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The weight, in this case, defaults to 1
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -281,6 +286,25 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">Element</span><span class="p">)</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>element</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The element to be added</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -298,7 +322,12 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Adds a new element into the <code>WeightedList</code></p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    Throws a <code><a href="../Enums/WeightedListErrors.html#/s:6Angelo18WeightedListErrorsO13InvalidWeightyA2CmF">WeightedListErrors.InvalidWeight</a></code> if the weight is <code>&lt;= 0</code>
+
+</div>
 
                       </div>
                       <div class="declaration">
@@ -308,6 +337,37 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="n">_</span> <span class="nv">element</span><span class="p">:</span> <span class="kt">Element</span><span class="p">,</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="k">throws</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>element</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The element to be added</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>weight</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The weight of the element</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -325,7 +385,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Gets a random element from the list</p>
 
                       </div>
                       <div class="declaration">
@@ -335,6 +395,10 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">randomElement</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Element</span><span class="p">?</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A randomly selected element from the list</p>
                       </div>
                     </section>
                   </div>
@@ -352,7 +416,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Removes all elements from the list</p>
 
                       </div>
                       <div class="declaration">
