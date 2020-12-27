@@ -26,19 +26,19 @@ class LSystemElementTransitionTests: XCTestCase {
         let input = LSystemElement("a")
         let output = LSystemElement("b")
         
-        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String : Any]) in
+        let elementTransition = LSystemParametersTransition(input: input.string, output: output.string) { (parameters) -> ([String : Any]) in
             return [:]
         }
         
-        XCTAssertEqual(input.string, elementTransition.referenceInputString)
-        XCTAssertEqual(output.string, elementTransition.referenceOutputString)
+        XCTAssertEqual(input.string, elementTransition.input)
+        XCTAssertEqual(output.string, elementTransition.output)
     }
     
     func testLSystemElementTransitionValid() {
         let input = LSystemElement("a")
         let output = LSystemElement("b")
         
-        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String: Any]) in
+        let elementTransition = LSystemParametersTransition(input: input.string, output: output.string) { (parameters) -> ([String: Any]) in
             return [:]
         }
         
@@ -49,7 +49,7 @@ class LSystemElementTransitionTests: XCTestCase {
         let input = LSystemElement("a")
         let output = LSystemElement("b")
         
-        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String: Any]) in
+        let elementTransition = LSystemParametersTransition(input: input.string, output: output.string) { (parameters) -> ([String: Any]) in
             return [:]
         }
         
@@ -60,9 +60,8 @@ class LSystemElementTransitionTests: XCTestCase {
         let input = LSystemElement("a")
         let output = LSystemElement("b")
         
-        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String: Any]) in
-            let number = parameters["int"] as! Int * 5
-            return ["int": number]
+        let elementTransition = LSystemParametersTransition(input: input.string, output: output.string) { (parameters) -> ([String: Any]) in
+            return [:]
         }
         
         XCTAssertEqual(output, elementTransition.performTransition(inputElement: input))
@@ -72,8 +71,8 @@ class LSystemElementTransitionTests: XCTestCase {
         let input = LSystemElement("a", parameters: ["height": 1])
         let output = LSystemElement("b", parameters: ["weight": 10])
         
-        let elementTransition = LSystemParametersTransition(referenceInputString: input.string, referenceOutputString: output.string) { (parameters) -> ([String : Any]) in
-            let height = parameters["height"] as! Int
+        let elementTransition = LSystemParametersTransition(input: input.string, output: output.string) { (parameters) -> ([String : Any]) in
+            let height = parameters?["height"] as! Int
             let weight = height * 10
             let newParameters = ["weight": weight]
             return newParameters

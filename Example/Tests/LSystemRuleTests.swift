@@ -134,10 +134,10 @@ class LSystemRuleTests: XCTestCase {
         let rule = LSystemRule(input: "a", output: "b")
         
         let transition = LSystemParametersTransition(
-            referenceInputString: "a",
-            referenceOutputString: "b")
+            input: "a",
+            output: "b")
         { (parameters) -> ([String : Any]) in
-            let aHeight = parameters["height"] as! Int
+            let aHeight = parameters?["height"] as! Int
             return ["weight": aHeight * 10]
         }
         

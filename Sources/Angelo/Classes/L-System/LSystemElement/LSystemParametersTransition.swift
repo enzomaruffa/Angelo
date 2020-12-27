@@ -8,29 +8,25 @@
 import Foundation
 
 public struct LSystemParametersTransition {
-    public let referenceInputString: String
-    public let referenceOutputString: String
-    public let transition: ([String: Any]) -> ([String: Any])
+    public let input: String
+    public let output: String
+    public let transition: ([String: Any]?) -> ([String: Any])
     
-    public init(referenceInputString: String,
-                referenceOutputString: String,
-                transition: @escaping ([String: Any]) -> ([String: Any])) {
-        self.referenceInputString = referenceInputString
-        self.referenceOutputString = referenceOutputString
+    public init(input: String,
+                output: String,
+                transition: @escaping ([String: Any]?) -> ([String: Any])) {
+        self.input = input
+        self.output = output
         self.transition = transition
     }
     
     public func isValid(forInput input: String, output: String) -> Bool {
-        return input == referenceInputString
-            && output == referenceOutputString
+        return input == self.input
+            && output == self.output
     }
     
     public func performTransition(inputElement: LSystemElement) -> LSystemElement {
-        guard let parameters = inputElement.parameters else {
-            return LSystemElement(referenceOutputString)
-        }
-        
-        let newParameters = transition(parameters)
-        return LSystemElement(referenceOutputString, parameters: newParameters)
+        let newParameters = transition(inputElement.parameters)
+        return LSystemElement(output, parameters: newParameters)
     }
 }

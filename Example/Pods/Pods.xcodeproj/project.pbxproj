@@ -66,13 +66,13 @@
 		AA14851FB1702B57BA88E3F64B9B2DF9 /* Pods-Angelo_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Angelo_Example-Info.plist"; sourceTree = "<group>"; };
 		ABD9222F1622BDD38EB865D91535A0C2 /* Angelo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Angelo.modulemap; sourceTree = "<group>"; };
 		AE8CB021871625C9E9007F38433952ED /* Angelo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Angelo.release.xcconfig; sourceTree = "<group>"; };
-		C04C904A25983409000D7510 /* WeightedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeightedList.swift; path = ../../Sources/Angelo/Classes/WeightedList/WeightedList.swift; sourceTree = "<group>"; };
-		C04C90552598345B000D7510 /* LSystemRuleContextAwareSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSystemRuleContextAwareSource.swift; path = "../../../Sources/Angelo/Classes/L-System/LSystemRule/LSystemRuleContextAwareSource.swift"; sourceTree = "<group>"; };
-		C04C90562598345B000D7510 /* LSystemElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSystemElement.swift; path = "../../../Sources/Angelo/Classes/L-System/LSystemElement/LSystemElement.swift"; sourceTree = "<group>"; };
-		C04C90572598345B000D7510 /* LSystemRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSystemRule.swift; path = "../../../Sources/Angelo/Classes/L-System/LSystemRule/LSystemRule.swift"; sourceTree = "<group>"; };
-		C04C90582598345B000D7510 /* LSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSystem.swift; path = "../../Sources/Angelo/Classes/L-System/LSystem.swift"; sourceTree = "<group>"; };
-		C04C90592598345B000D7510 /* LSystemParametersTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSystemParametersTransition.swift; path = "../../../Sources/Angelo/Classes/L-System/LSystemElement/LSystemParametersTransition.swift"; sourceTree = "<group>"; };
-		C04C905A2598345B000D7510 /* LSystemResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LSystemResult.swift; path = "../../../Sources/Angelo/Classes/L-System/LSystemResult/LSystemResult.swift"; sourceTree = "<group>"; };
+		C04C904A25983409000D7510 /* WeightedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeightedList.swift; sourceTree = "<group>"; };
+		C04C90552598345B000D7510 /* LSystemRuleContextAwareSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSystemRuleContextAwareSource.swift; sourceTree = "<group>"; };
+		C04C90562598345B000D7510 /* LSystemElement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSystemElement.swift; sourceTree = "<group>"; };
+		C04C90572598345B000D7510 /* LSystemRule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSystemRule.swift; sourceTree = "<group>"; };
+		C04C90582598345B000D7510 /* LSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSystem.swift; sourceTree = "<group>"; };
+		C04C90592598345B000D7510 /* LSystemParametersTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSystemParametersTransition.swift; sourceTree = "<group>"; };
+		C04C905A2598345B000D7510 /* LSystemResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LSystemResult.swift; sourceTree = "<group>"; };
 		C079AEB5E28AD147C051366A6735486B /* Pods-Angelo_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Angelo_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		C172585D70F5AA7565F04AC953D0CA22 /* Pods-Angelo_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Angelo_Tests-umbrella.h"; sourceTree = "<group>"; };
 		C656645D1E7A6B4910203CB0A8621A06 /* Pods-Angelo_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Angelo_Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		03329701FCBE62304FFE22B15B150A22 /* Angelo */ = {
 			isa = PBXGroup;
 			children = (
-				C04C9092259838B3000D7510 /* Source */,
+				C04C9092259838B3000D7510 /* Classes */,
 				BBF5E0F87D198DDE318B82624C707F86 /* Pod */,
 				E4D0879F172E670AEBFB9DCD64D425F4 /* Support Files */,
 			);
@@ -220,13 +220,14 @@
 			path = LSystemRule;
 			sourceTree = "<group>";
 		};
-		C04C9092259838B3000D7510 /* Source */ = {
+		C04C9092259838B3000D7510 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				C04C906425983464000D7510 /* L-System */,
 				C04C905425983414000D7510 /* WeightedList */,
 			);
-			path = Source;
+			name = Classes;
+			path = Sources/Angelo/Classes;
 			sourceTree = "<group>";
 		};
 		C0834CEBB1379A84116EF29F93051C60 /* iOS */ = {

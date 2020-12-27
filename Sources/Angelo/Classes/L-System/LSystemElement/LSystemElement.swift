@@ -32,7 +32,10 @@ public class LSystemElement {
         return parameters.keys.map({ $0 })
     }
     
-    public func stringWithParameters(startDelimiter: String, separator: String, endDelimiter: String) -> String {
+    public func stringWithParameters(startDelimiter: String,
+                                     keyValueSeparator: String,
+                                     separator: String,
+                                     endDelimiter: String) -> String {
         guard let parameterKeys = parameterKeys() else {
             return string
         }
@@ -46,7 +49,7 @@ public class LSystemElement {
         for key in parameterKeys {
             guard let convertible = getParameter(named: key) as? CustomStringConvertible else { continue }
             returnString += key
-            returnString += separator
+            returnString += keyValueSeparator
             returnString += convertible.description
             
             if key != parameterKeys.last {

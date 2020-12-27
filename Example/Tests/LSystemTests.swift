@@ -37,10 +37,10 @@ class LSystemTests: XCTestCase {
         XCTAssertEqual(1, system.rules.count)
         
         let transition = LSystemParametersTransition(
-            referenceInputString: "a",
-            referenceOutputString: "b")
+            input: "a",
+            output: "b")
         { (parameters) -> ([String : Any]) in
-            let aHeight = parameters["height"] as! Int
+            let aHeight = parameters?["height"] as! Int
             return ["weight": aHeight * 10]
         }
         
@@ -63,7 +63,7 @@ class LSystemTests: XCTestCase {
         
         system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
         
-        let output = try! system.produceOutput(inputElement: LSystemElement("a"), iterations: 5)
+        let output = system.produceOutput(inputElement: LSystemElement("a"), iterations: 5)
         
         XCTAssertEqual(output.iterations, 5)
         XCTAssertEqual(output.string, "abbbbb")
@@ -81,7 +81,7 @@ class LSystemTests: XCTestCase {
             })
         system.add(rule: rule)
         
-        let output = try! system.produceOutput(inputElement: LSystemElement("a"), iterations: 5)
+        let output = system.produceOutput(inputElement: LSystemElement("a"), iterations: 5)
         
         XCTAssertEqual(output.iterations, 5)
         XCTAssertEqual(output.string, "abbb")
@@ -111,22 +111,22 @@ class LSystemTests: XCTestCase {
         system.add(rule: rule)
         system.add(rule: rule2)
         
-        system.addTransition(input: "a", output: "a") { (parameters) -> ([String : Any]) in
-            let number = parameters["number"] as! Int
-            return ["number": number + 1]
-        }
+        system.add(transition: LSystemParametersTransition(input: "a", output: "a", transition: { (parameters) -> ([String : Any]) in
+                let number = parameters?["number"] as! Int
+                return ["number": number + 1]
+        }))
         
-        system.addTransition(input: "a", output: "b") { (parameters) -> ([String : Any]) in
-            let number = parameters["number"] as! Int
+        system.add(transition: LSystemParametersTransition(input: "a", output: "b", transition: { (parameters) -> ([String : Any]) in
+            let number = parameters?["number"] as! Int
             return ["humour": number*10]
-        }
+        }))
         
-        let output = try! system.produceOutput(inputElement: LSystemElement("a", parameters: ["number": 0]), iterations: 10)
+        let output = system.produceOutput(inputElement: LSystemElement("a", parameters: ["number": 0]), iterations: 10)
         
         XCTAssertEqual(output.iterations, 10)
         XCTAssertEqual(output.string, "acccccbbbbb")
         XCTAssertEqual(output.outputElements.first?.getParameter(named: "number") as! Int, 10)
-        XCTAssertEqual(output.stringWithParameters, "a(number;10)cccccb(humour;40)b(humour;30)b(humour;20)b(humour;10)b(humour;0)")
+        XCTAssertEqual(output.stringWithParameters, "a(number:10)cccccb(humour:40)b(humour:30)b(humour:20)b(humour:10)b(humour:0)")
     }
 
     func testLSystemProducingAlgae() {
@@ -135,25 +135,44 @@ class LSystemTests: XCTestCase {
         system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
         system.add(rule: LSystemRule(input: "b", output: "a"))
 
-        var output = try! system.produceOutput(input: "a", iterations: 1)
+        var output = system.produceOutput(input: "a", iterations: 1)
         
         XCTAssertEqual(output.iterations, 1)
         XCTAssertEqual(output.string, "ab")
         
-        output = try! system.iterate(input: output)
+        output = system.iterate(input: output)
         
         XCTAssertEqual(output.iterations, 2)
         XCTAssertEqual(output.string, "aba")
         
-        output = try! system.iterate(input: output)
+        output = system.iterate(input: output)
         
         XCTAssertEqual(output.iterations, 3)
         XCTAssertEqual(output.string, "abaab")
         
-        output = try! system.iterate(input: output)
+        output = system.iterate(input: output)
         
         XCTAssertEqual(output.iterations, 4)
         XCTAssertEqual(output.string, "abaababa")
+    }
+    
+    func testLSystemAlgaeOriginParameter() {
+        let system = LSystem()
+        system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
+        system.add(rule: LSystemRule(input: "b", output: "a"))
+        
+        system.add(transition: LSystemParametersTransition(input: "a", output: "a", transition: { (_) -> ([String : Any]) in
+            return ["origin": "a"]
+        }))
+        
+        system.add(transition: LSystemParametersTransition(input: "b", output: "a", transition: { (_) -> ([String : Any]) in
+            return ["origin": "b"]
+        }))
+        
+        let output = system.produceOutput(input: "a", iterations: 5)
+        
+        XCTAssertEqual(output.stringWithParameters, "a(origin:a)ba(origin:b)a(origin:a)ba(origin:a)ba(origin:b)a(origin:a)ba(origin:b)a(origin:a)b")
+        
     }
 
 }

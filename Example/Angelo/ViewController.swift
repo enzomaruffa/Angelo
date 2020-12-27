@@ -15,6 +15,23 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
+        // Creating our system
+        let system = LSystem()
+        system.add(rule: LSystemRule(input: "a", outputs: ["a", "b"]))
+        system.add(rule: LSystemRule(input: "b", output: "a"))
+
+        system.add(transition: LSystemParametersTransition(input: "a", output: "a", transition: { (_) -> ([String : Any]) in
+            return ["origin": "a"]
+        }))
+        
+        system.add(transition: LSystemParametersTransition(input: "b", output: "a", transition: { (_) -> ([String : Any]) in
+            return ["origin": "b"]
+        }))
+        
+        let output = system.produceOutput(input: "a", iterations: 5)
+        
+        print(output.string) // A string of the elements's string representation
+        print(output.stringWithParameters)
     }
 
     override func didReceiveMemoryWarning() {

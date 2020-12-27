@@ -30,13 +30,6 @@ public class LSystem {
         transitions.append(transition)
     }
     
-    public func addTransition(input: String, output: String, transition: @escaping ([String: Any]) -> ([String: Any])) {
-        
-        let transition = LSystemParametersTransition(referenceInputString: input, referenceOutputString: output, transition: transition)
-        
-        add(transition: transition)
-    }
-    
     internal func getAvailableRules(forInputElement inputElement: LSystemElement, elementIndex: Int, contextAwareComponentSource: LSystemRuleContextAwareSource?) -> [LSystemRule] {
         let availableRules = rules.filter { (rule) -> Bool in
             rule.isValid(forInputElement: inputElement,
@@ -46,7 +39,7 @@ public class LSystem {
         return availableRules
     }
     
-    public func iterate(input: LSystemResult) throws ->  LSystemResult {
+    public func iterate(input: LSystemResult) ->  LSystemResult {
         let output = LSystemResult(initialElement: input.inputElement)
         output.iterationsPerformed = input.iterationsPerformed + 1
         
@@ -56,8 +49,13 @@ public class LSystem {
             let availableRules = getAvailableRules(forInputElement: element, elementIndex: index, contextAwareComponentSource: input)
             
             let list = WeightedList<LSystemRule>()
-            try availableRules.forEach { (rule) in
-                try list.add(rule, weight: rule.weight)
+            
+            availableRules.forEach { (rule) in
+                do {
+                    try list.add(rule, weight: rule.weight)
+                } catch {
+                    print("Error adding rule to list: [\(error.localizedDescription)]")
+                }
             }
             
             if let selectedRule = list.randomElement() {
@@ -78,16 +76,16 @@ public class LSystem {
         return output
     }
     
-    public func produceOutput(input: String, iterations: Int)  throws -> LSystemResult {
-        return try produceOutput(inputElement: LSystemElement(input), iterations: iterations)
+    public func produceOutput(input: String, iterations: Int) -> LSystemResult {
+        return produceOutput(inputElement: LSystemElement(input), iterations: iterations)
     }
     
-    public func produceOutput(inputElement: LSystemElement, iterations: Int)  throws -> LSystemResult {
+    public func produceOutput(inputElement: LSystemElement, iterations: Int) -> LSystemResult {
         var output = LSystemResult(initialElement: inputElement)
         output.outputElements = [inputElement]
         
         for _ in 0..<iterations {
-            output = try iterate(input: output)
+            output = iterate(input: output)
         }
         
         return output

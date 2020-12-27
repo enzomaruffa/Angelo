@@ -14,6 +14,7 @@ public class LSystemResult {
     public var outputElements: [LSystemElement] = []
     
     public var parameterSeparator = ";"
+    public var parameterKeyValueSeparator = ":"
     public var parameterStartDelimiter = "("
     public var parameterEndDelimiter = ")"
     
@@ -21,6 +22,7 @@ public class LSystemResult {
         outputElements
             .map { $0.stringWithParameters(
                     startDelimiter: parameterStartDelimiter,
+                    keyValueSeparator: parameterKeyValueSeparator,
                     separator: parameterSeparator,
                     endDelimiter: parameterEndDelimiter)
                 }
