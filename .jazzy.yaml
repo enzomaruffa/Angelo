@@ -1,0 +1,9 @@
+module: Angelo
+author: Enzo Maruffa
+title: Angelo - Procedural Generation Library
+author_url: https://github.com/enzomaruffa
+github_url: https://github.com/enzomaruffa/Angelo
+min_acl: internal
+podspec: Angelo.podspec
+use_safe_filenames: true
+separate_global_declarations: true

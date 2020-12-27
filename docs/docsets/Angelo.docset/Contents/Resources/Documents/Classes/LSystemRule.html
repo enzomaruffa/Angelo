@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LSystemRule Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/LSystemRule" class="dashAnchor"></a>
+    <a title="LSystemRule Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">Angelo - Procedural Generation Library</a> (1% documented)</p>
+        <p class="header-right"><a href="https://github.com/enzomaruffa/Angelo"><img src="../img/gh.png"/>View on GitHub</a></p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">Angelo Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        LSystemRule Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/LSystem.html">LSystem</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LSystemElement.html">LSystemElement</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LSystemResult.html">LSystemResult</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/LSystemRule.html">LSystemRule</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/WeightedList.html">WeightedList</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/LSystemErrors.html">LSystemErrors</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/LSystemNoRuleBehavior.html">LSystemNoRuleBehavior</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Enums/WeightedListErrors.html">WeightedListErrors</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/LSystemRuleContextAwareSource.html">LSystemRuleContextAwareSource</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/LSystemParametersTransition.html">LSystemParametersTransition</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>LSystemRule</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">LSystemRule</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC14ParameterChecka"></a>
+                    <a name="//apple_ref/swift/Alias/ParameterCheck" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC14ParameterChecka">ParameterCheck</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ParameterCheck</span> <span class="o">=</span> <span class="p">((</span><span class="n">_</span> <span class="nv">parameters</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC17ContextAwareChecka"></a>
+                    <a name="//apple_ref/swift/Alias/ContextAwareCheck" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC17ContextAwareChecka">ContextAwareCheck</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">typealias</span> <span class="kt">ContextAwareCheck</span> <span class="o">=</span> <span class="p">((</span><span class="n">_</span> <span class="nv">source</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LSystemRuleContextAwareSource.html">LSystemRuleContextAwareSource</a></span><span class="p">,</span> <span class="n">_</span> <span class="nv">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5inputSSvp"></a>
+                    <a name="//apple_ref/swift/Property/input" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5inputSSvp">input</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC7outputsSaySSGvp"></a>
+                    <a name="//apple_ref/swift/Property/outputs" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC7outputsSaySSGvp">outputs</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">outputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC6weightSdvp"></a>
+                    <a name="//apple_ref/swift/Property/weight" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC6weightSdvp">weight</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC14parameterCheckSbSDySSypGcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/parameterCheck" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC14parameterCheckSbSDySSypGcSgvp">parameterCheck</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">parameterCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC14ParameterChecka">ParameterCheck</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC17contextAwareCheckSbAA0bc7ContextE6Source_p_SitcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/contextAwareCheck" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC17contextAwareCheckSbAA0bc7ContextE6Source_p_SitcSgvp">contextAwareCheck</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">contextAwareCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC17ContextAwareChecka">ContextAwareCheck</a></span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input6outputACSS_SStcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:output:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input6outputACSS_SStcfc">init(input:<wbr>output:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">output</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input7outputsACSS_SaySSGtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:outputs:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input7outputsACSS_SaySSGtcfc">init(input:<wbr>outputs:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">outputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input6output6weightACSS_SSSdtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:output:weight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input6output6weightACSS_SSSdtKcfc">init(input:<wbr>output:<wbr>weight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">output</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input7outputs6weightACSS_SaySSGSdtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:outputs:weight:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input7outputs6weightACSS_SaySSGSdtKcfc">init(input:<wbr>outputs:<wbr>weight:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">outputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input6output6weight14parameterCheckACSS_SSSdSbSDySSypGcSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:output:weight:parameterCheck:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input6output6weight14parameterCheckACSS_SSSdSbSDySSypGcSgtKcfc">init(input:<wbr>output:<wbr>weight:<wbr>parameterCheck:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">output</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">parameterCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC14ParameterChecka">ParameterCheck</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input7outputs6weight14parameterCheckACSS_SaySSGSdSbSDySSypGcSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:outputs:weight:parameterCheck:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input7outputs6weight14parameterCheckACSS_SaySSGSdSbSDySSypGcSgtKcfc">init(input:<wbr>outputs:<wbr>weight:<wbr>parameterCheck:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">outputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">parameterCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC14ParameterChecka">ParameterCheck</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input6output6weight17contextAwareCheckACSS_SSSdSbAA0bc7ContextH6Source_p_SitcSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:output:weight:contextAwareCheck:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input6output6weight17contextAwareCheckACSS_SSSdSbAA0bc7ContextH6Source_p_SitcSgtKcfc">init(input:<wbr>output:<wbr>weight:<wbr>contextAwareCheck:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">output</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">contextAwareCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC17ContextAwareChecka">ContextAwareCheck</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input7outputs6weight17contextAwareCheckACSS_SaySSGSdSbAA0bc7ContextH6Source_p_SitcSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:outputs:weight:contextAwareCheck:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input7outputs6weight17contextAwareCheckACSS_SaySSGSdSbAA0bc7ContextH6Source_p_SitcSgtKcfc">init(input:<wbr>outputs:<wbr>weight:<wbr>contextAwareCheck:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">outputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">contextAwareCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC17ContextAwareChecka">ContextAwareCheck</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input6output6weight14parameterCheck012contextAwareH0ACSS_SSSdSbSDySSypGcSgSbAA0bc7ContextJ6Source_p_SitcSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:output:weight:parameterCheck:contextAwareCheck:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input6output6weight14parameterCheck012contextAwareH0ACSS_SSSdSbSDySSypGcSgSbAA0bc7ContextJ6Source_p_SitcSgtKcfc">init(input:<wbr>output:<wbr>weight:<wbr>parameterCheck:<wbr>contextAwareCheck:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="n">convenience</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">output</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">parameterCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC14ParameterChecka">ParameterCheck</a></span><span class="p">,</span> <span class="nv">contextAwareCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC17ContextAwareChecka">ContextAwareCheck</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5input7outputs6weight14parameterCheck012contextAwareH0ACSS_SaySSGSdSbSDySSypGcSgSbAA0bc7ContextJ6Source_p_SitcSgtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(input:outputs:weight:parameterCheck:contextAwareCheck:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5input7outputs6weight14parameterCheck012contextAwareH0ACSS_SaySSGSdSbSDySSypGcSgSbAA0bc7ContextJ6Source_p_SitcSgtKcfc">init(input:<wbr>outputs:<wbr>weight:<wbr>parameterCheck:<wbr>contextAwareCheck:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">outputs</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">],</span> <span class="nv">weight</span><span class="p">:</span> <span class="kt">Double</span><span class="p">,</span> <span class="nv">parameterCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC14ParameterChecka">ParameterCheck</a></span><span class="p">,</span> <span class="nv">contextAwareCheck</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemRule.html#/s:6Angelo11LSystemRuleC17ContextAwareChecka">ContextAwareCheck</a></span><span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC7isValid15forInputElement12elementIndex27contextAwareComponentSourceSbAA0bH0C_SiAA0bc7ContextlN0_pSgtF"></a>
+                    <a name="//apple_ref/swift/Method/isValid(forInputElement:elementIndex:contextAwareComponentSource:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC7isValid15forInputElement12elementIndex27contextAwareComponentSourceSbAA0bH0C_SiAA0bc7ContextlN0_pSgtF">isValid(forInputElement:<wbr>elementIndex:<wbr>contextAwareComponentSource:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">forInputElement</span> <span class="nv">inputElement</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span><span class="p">,</span> <span class="nv">elementIndex</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="nv">contextAwareComponentSource</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LSystemRuleContextAwareSource.html">LSystemRuleContextAwareSource</a></span><span class="p">?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5apply12inputElementSayAA0bF0CGAG_tF"></a>
+                    <a name="//apple_ref/swift/Method/apply(inputElement:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5apply12inputElementSayAA0bF0CGAG_tF">apply(inputElement:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">apply</span><span class="p">(</span><span class="nv">inputElement</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:6Angelo11LSystemRuleC5apply12inputElement11transitionsSayAA0bF0CGAH_SayAA0B20ParametersTransitionVGtF"></a>
+                    <a name="//apple_ref/swift/Method/apply(inputElement:transitions:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:6Angelo11LSystemRuleC5apply12inputElement11transitionsSayAA0bF0CGAH_SayAA0B20ParametersTransitionVGtF">apply(inputElement:<wbr>transitions:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">apply</span><span class="p">(</span><span class="nv">inputElement</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span><span class="p">,</span> <span class="nv">transitions</span><span class="p">:</span> <span class="p">[</span><span class="kt"><a href="../Structs/LSystemParametersTransition.html">LSystemParametersTransition</a></span><span class="p">])</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://github.com/enzomaruffa" target="_blank" rel="external">Enzo Maruffa</a>. All rights reserved. (Last updated: 2020-12-27)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
