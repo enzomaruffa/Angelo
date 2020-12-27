@@ -240,7 +240,6 @@ PLATFORMS
 DEPENDENCIES
   cocoapods
   fastlane
-  xcpretty
 
 BUNDLED WITH
    2.2.3
