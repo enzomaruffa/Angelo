@@ -27,3 +27,6 @@ Enzo Maruffa, enzomm1999@gmail.com
 ## License
 
 Angelo is available under the MIT license. See the LICENSE file for more info.
+
+# Note: THIS IS A W.I.P
+Docs to come. More methods to come.
