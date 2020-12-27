@@ -1,6 +1,5 @@
 # Angelo
 
-[![Build Status](https://travis-ci.com/enzomaruffa/Angelo.svg?branch=main)](https://travis-ci.com/enzomaruffa/Angelo)
 [![Version](https://img.shields.io/cocoapods/v/Angelo.svg?style=flat)](https://cocoapods.org/pods/Angelo)
 [![License](https://img.shields.io/cocoapods/l/Angelo.svg?style=flat)](https://cocoapods.org/pods/Angelo)
 [![Platform](https://img.shields.io/cocoapods/p/Angelo.svg?style=flat)](https://cocoapods.org/pods/Angelo)
