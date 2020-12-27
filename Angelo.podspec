@@ -31,7 +31,7 @@ Angelo is a procedural generation library written in Swift. It offers L-Systems,
   s.ios.deployment_target = '12.0'
   s.swift_version = ['5.0', '5.1', '5.2']
 
-  s.source_files = 'Source/**/*.{swift}'
+  s.source_files = 'Sources/Angelo/**/*.{swift}'
   
   # s.resource_bundles = {
   #   'Angelo' => ['Angelo/Assets/*.png']
