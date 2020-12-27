@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// An element that can be used in an LSystem
+/// An element that can be used in an `LSystem`
 public class LSystemElement {
     
     /// The element's string representation
@@ -16,7 +16,7 @@ public class LSystemElement {
     /// The parameters from the element
     internal let parameters: [String: Any]?
 
-    /// Creates a new LSystemElement
+    /// Creates a new `LSystemElement`
     /// - Parameter string: The string representation of this element
     /// - Note: The parameters dict is set to nil in this case
     public init(_ string: String) {
@@ -24,7 +24,7 @@ public class LSystemElement {
         self.parameters = nil
     }
     
-    /// Creates a new LSystemElement
+    /// Creates a new `LSystemElement`
     /// - Parameters:
     ///   - string: The string representation of this element
     ///   - parameters: The intial parameters dictionary for this element
@@ -49,13 +49,13 @@ public class LSystemElement {
     }
     
     
-    /// Transform an LSystemElement, with its parameters, into a String
+    /// Transform an `LSystemElement`, with its parameters, into a String
     /// - Parameters:
     ///   - startDelimiter: The delimiter that preceds the element parameters
     ///   - keyValueSeparator: The separator to use between key and value in the parameters
     ///   - separator: The separator to use between each parameter
     ///   - endDelimiter: The delimiter that marks the end of the element parameters
-    /// - Returns: The string of an LSystemElement with it's parameters
+    /// - Returns: The string of an `LSystemElement` with it's parameters
     public func stringWithParameters(startDelimiter: String,
                                      keyValueSeparator: String,
                                      separator: String,
@@ -89,11 +89,11 @@ public class LSystemElement {
 
 extension LSystemElement: Equatable {
     
-    /// Checks if two LSystemElements are equal
+    /// Checks if two `LSystemElements` are equal
     /// - Parameters:
-    ///   - lhs: An LSystemElement
-    ///   - rhs: Another LSystemElement
-    /// - Returns: True if both have the same String representation. False if they are different.
+    ///   - lhs: An `LSystemElement`
+    ///   - rhs: Another `LSystemElement`
+    /// - Returns: `True` if both have the same `String` representation. `False` if they are different.
     public static func == (lhs: LSystemElement, rhs: LSystemElement) -> Bool {
         lhs.string == rhs.string
     }
