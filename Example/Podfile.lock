@@ -1,0 +1,16 @@
+PODS:
+  - Angelo (0.1.0)
+
+DEPENDENCIES:
+  - Angelo (from `../`)
+
+EXTERNAL SOURCES:
+  Angelo:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  Angelo: e838f332479bbbb4b0610a069ff9a82eb3d8064d
+
+PODFILE CHECKSUM: 77864297865cd62a56f32ac5c29c9aeb3bb6ba6b
+
+COCOAPODS: 1.9.3

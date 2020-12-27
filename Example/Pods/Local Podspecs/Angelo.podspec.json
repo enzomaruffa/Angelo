@@ -1,0 +1,22 @@
+{
+  "name": "Angelo",
+  "version": "0.1.0",
+  "summary": "A short description of Angelo.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Enzo Maruffa/Angelo",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Enzo Maruffa": "enzomm1999@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/Enzo Maruffa/Angelo.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "Angelo/Classes/**/*"
+}
