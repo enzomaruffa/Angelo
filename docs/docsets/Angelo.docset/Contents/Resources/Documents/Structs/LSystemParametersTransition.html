@@ -14,7 +14,7 @@
     <a title="LSystemParametersTransition Structure Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">Angelo - Procedural Generation Library</a> (1% documented)</p>
+        <p><a href="../index.html">Angelo - Procedural Generation Library</a> (19% documented)</p>
         <p class="header-right"><a href="https://github.com/enzomaruffa/Angelo"><img src="../img/gh.png"/>View on GitHub</a></p>
       </div>
     </header>
@@ -90,7 +90,7 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>A struct that defines how the parameters from an input element translate into the parameters for an output element</p>
 
           </section>
           <section class="section task-group-section">
@@ -109,7 +109,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The input element this transition applies to</p>
 
                       </div>
                       <div class="declaration">
@@ -136,7 +136,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The output element this transition applies to</p>
 
                       </div>
                       <div class="declaration">
@@ -163,7 +163,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>A function that specify how the parameters are transformed for an input into an output</p>
 
                       </div>
                       <div class="declaration">
@@ -190,7 +190,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Creates a LSystemParametersTransition</p>
 
                       </div>
                       <div class="declaration">
@@ -202,6 +202,49 @@
             <span class="nv">transition</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">([</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]?)</span> <span class="o">-&gt;</span> <span class="p">([</span><span class="kt">String</span><span class="p">:</span> <span class="kt">Any</span><span class="p">]))</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input element this transition applies to</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>output</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The output element this transition applies to</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>transition</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A function that specify how the parameters are transformed for an input into an output</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
                       </div>
                     </section>
                   </div>
@@ -219,7 +262,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Checks if a transition is valid given an input and output</p>
 
                       </div>
                       <div class="declaration">
@@ -229,6 +272,41 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">forInput</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">output</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>input</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The input to compare to</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>output</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The output to compare to</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A Bool that if true means the transition is valid</p>
                       </div>
                     </section>
                   </div>
@@ -246,7 +324,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Performs a transition of an inputElement into an output</p>
 
                       </div>
                       <div class="declaration">
@@ -256,6 +334,29 @@
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">performTransition</span><span class="p">(</span><span class="nv">inputElement</span><span class="p">:</span> <span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Classes/LSystemElement.html">LSystemElement</a></span></code></pre>
 
                         </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>inputElement</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The inputElement to use in the transition</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>The output generated by the transition</p>
                       </div>
                     </section>
                   </div>
