@@ -39,6 +39,7 @@ platform :ios do
 	ensure_git_status_clean
     	pod_lib_lint
     	version = version_bump_podspec(path: podspecName, bump_type: type)
+        jazzy
    	git_add(path: podspecName)
     	git_commit(path: [podspecName], message: "#{version} release")
     	add_git_tag(tag: "#{version}")

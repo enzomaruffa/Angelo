@@ -1,0 +1,47 @@
+{
+  "warnings": [
+    {
+      "file": "/Users/enzolitos/Estudo/Angelo/Sources/Angelo/Classes/L-System/LSystem.swift",
+      "line": 133,
+      "symbol": "LSystemNoRuleBehavior.keep",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/enzolitos/Estudo/Angelo/Sources/Angelo/Classes/L-System/LSystem.swift",
+      "line": 134,
+      "symbol": "LSystemNoRuleBehavior.remove",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/enzolitos/Estudo/Angelo/Sources/Angelo/Classes/L-System/LSystem.swift",
+      "line": 139,
+      "symbol": "LSystemErrors.RuleWithInvalidWeight",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/enzolitos/Estudo/Angelo/Sources/Angelo/Classes/L-System/LSystemRule/LSystemRule.swift",
+      "line": 12,
+      "symbol": "LSystemRule.ParameterCheck",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/enzolitos/Estudo/Angelo/Sources/Angelo/Classes/L-System/LSystemRule/LSystemRule.swift",
+      "line": 13,
+      "symbol": "LSystemRule.ContextAwareCheck",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/enzolitos/Estudo/Angelo/Sources/Angelo/Classes/WeightedList/WeightedList.swift",
+      "line": 93,
+      "symbol": "WeightedListErrors.InvalidWeight",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
+    }
+  ],
+  "source_directory": "/Users/enzolitos/Estudo/Angelo"
+}
