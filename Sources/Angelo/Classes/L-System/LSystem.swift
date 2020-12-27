@@ -130,11 +130,15 @@ public class LSystem {
 
 /// Describes how an `LSystem` should behave when no rules are available for an element
 public enum LSystemNoRuleBehavior {
+    /// The element is kept into the output (basically a rule where `element -> element`)
     case keep
+    
+    /// The element is removed from output
     case remove
 }
 
 /// The errors that the `LSystem` can throw
 enum LSystemErrors: Error {
+    /// An error thrown if a rule with invalid weight is added into the `LSystem`
     case RuleWithInvalidWeight
 }

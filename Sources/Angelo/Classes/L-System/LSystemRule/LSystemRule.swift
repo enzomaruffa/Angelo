@@ -9,7 +9,9 @@ import Foundation
 
 /// A rule that describes in what each element in the L-System is transformed into
 public class LSystemRule {
+    /// A typealias for the function that checks the parameter from an `LSystemElement`
     public typealias ParameterCheck = ((_ parameters: [String: Any]) -> Bool)?
+    /// A typealias for the function that checks the context from a `LSystemRuleContextAwareSource` and the index of the element that is being evaluated
     public typealias ContextAwareCheck = ((_ source: LSystemRuleContextAwareSource, _ index: Int) -> Bool)?
     
     /// The input that this rule applies to

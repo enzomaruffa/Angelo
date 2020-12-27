@@ -90,5 +90,6 @@ public class WeightedList<Element> {
 
 /// The errors that the `WeightedList` can throw
 enum WeightedListErrors: Error {
+    /// Error thrown if an element with invalid weight is added into the list
     case InvalidWeight
 }
