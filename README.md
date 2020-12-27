@@ -5,14 +5,16 @@
 [![License](https://img.shields.io/cocoapods/l/Angelo.svg?style=flat)](https://cocoapods.org/pods/Angelo)
 [![Platform](https://img.shields.io/cocoapods/p/Angelo.svg?style=flat)](https://cocoapods.org/pods/Angelo)
 
-## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+## What is Angelo?
+Angelo is a library to assist developers in using procedural generation in their apps. It's written purely in Swift and currently supports the following methods: 
+- Weighted Lists
+- L-Systems
 
-## Requirements
+## Docs
+Angelo Docs are currently in Notion: https://www.notion.so/Angelo-Docs-c14404883fcb4fa88dac8a0cac348794
 
 ## Installation
-
 Angelo is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
@@ -20,13 +22,13 @@ it, simply add the following line to your Podfile:
 pod 'Angelo'
 ```
 
-## Author
+Angelo is also available using **Carthage** and the **Swift Package Manager**
 
-Enzo Maruffa, enzomm1999@gmail.com
+## Example
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+## Author
+Angelo is made by me, Enzo Maruffa. Feel free to contribute or reach out to me!
 
 ## License
-
 Angelo is available under the MIT license. See the LICENSE file for more info.
-
-# Note: THIS IS A W.I.P
-Docs to come. More methods to come.
