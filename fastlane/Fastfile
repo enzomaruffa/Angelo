@@ -35,7 +35,7 @@ platform :ios do
   def release(type)
 	update_fastlane
 	podspecName = "Angelo.podspec"
-	ensure_git_branch
+	ensure_git_branch(branch: 'main')
 	ensure_git_status_clean
     	pod_lib_lint
     	version = version_bump_podspec(path: podspecName, bump_type: type)
