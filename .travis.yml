@@ -6,7 +6,7 @@ language: swift
 osx_image: xcode11.3
 xcode_workspace: Angelo.xcworkspace
 xcode_scheme: Angelo-Example
-xcode_destination: platform=iOS Simulator,OS=13.3,name=iPhone 11 Pro Max
+xcode_destination: platform=iOS Simulator,OS=13.0,name=iPhone 11
 before_install:
 - gem install cocoapods
 - cd Example
