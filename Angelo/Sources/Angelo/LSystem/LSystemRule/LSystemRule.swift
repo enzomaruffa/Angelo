@@ -19,12 +19,12 @@ class LSystemRule {
     let parameterCheck: ParameterCheck
     let contextAwareCheck: ContextAwareCheck
     
-    convenience init(input: String, output: String) throws {
-        try self.init(input: input, outputs: [output])
+    convenience init(input: String, output: String) {
+        self.init(input: input, outputs: [output])
     }
     
-    convenience init(input: String, outputs: [String]) throws {
-        try self.init(input: input, outputs: outputs, weight: 1)
+    convenience init(input: String, outputs: [String]) {
+        try! self.init(input: input, outputs: outputs, weight: 1)
     }
     
     convenience init(input: String, output: String, weight: Double) throws {
