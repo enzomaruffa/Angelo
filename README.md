@@ -23,9 +23,6 @@ pod 'Angelo'
 
 Angelo is also available using **Carthage** and the **Swift Package Manager**
 
-## Example
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
 ## Author
 Angelo is made by me, Enzo Maruffa. Feel free to contribute or reach out to me!
 
