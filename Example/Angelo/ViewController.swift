@@ -39,8 +39,8 @@ class ViewController: UIViewController {
     }
     
     func makeConstraints() {
-        imageView.widthAnchor.constraint(equalToConstant: 3).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        imageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
         imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
