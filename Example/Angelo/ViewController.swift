@@ -28,9 +28,9 @@ class ViewController: UIViewController {
             let processor = WFCTilesPreProcessor()
             let (adjacency, frequency, colorMap) = try! processor.preprocess(image: image, tileSize: (3, 3))
             
-            let matrix = [[0, 1, 0],
-                          [0, 1, 0],
-                          [0, 1, 0]]
+            let solver = WFCTilesSolver(outputSize: (120, 120), rules: adjacency, frequency: frequency
+            
+            let matrix = solver.
             
             let postprocessor = WFCTilesPostProcessor()
             let image = postprocessor.postprocess(tileIndexMatrix: matrix, colorMap: colorMap)
