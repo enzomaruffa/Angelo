@@ -28,9 +28,9 @@ public class WFCTilesSolver {
         return [[0]]
     }
     
-    internal func chooseNode() -> (i: Int, j: Int) {
-        
-    }
+//    internal func chooseNode() -> (i: Int, j: Int) {
+//
+//    }
 
     internal func collapseNode(at: (i: Int, j: Int)) {
     }
@@ -40,14 +40,14 @@ public class WFCTilesSolver {
     }
 
     // roughly the same as the empty sudoku solver
-    internal func run() {
-        while nodesToCollapse > 0 {
-            let (i, j) = self.chooseNode()
-            collapseNode(at: (i, j))
-            propagate()
-            nodesToCollapse -= 1
-        }
-    }
+//    internal func run() {
+//        while nodesToCollapse > 0 {
+//            let (i, j) = self.chooseNode()
+//            collapseNode(at: (i, j))
+//            propagate()
+//            nodesToCollapse -= 1
+//        }
+//    }
 }
 
 public enum WFCErrors: Error {

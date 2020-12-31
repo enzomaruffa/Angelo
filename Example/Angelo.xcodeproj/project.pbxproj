@@ -20,6 +20,7 @@
 		C04C90812598374B000D7510 /* LSystemElementTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C90802598374B000D7510 /* LSystemElementTests.swift */; };
 		C04C908725983774000D7510 /* LSystemElementTransitionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C908625983774000D7510 /* LSystemElementTransitionTests.swift */; };
 		C04C908D259837B8000D7510 /* LSystemRuleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C908C259837B8000D7510 /* LSystemRuleTests.swift */; };
+		C0A43706259E412D000E5C2E /* HeapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A43705259E412D000E5C2E /* HeapTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		C04C90802598374B000D7510 /* LSystemElementTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSystemElementTests.swift; sourceTree = "<group>"; };
 		C04C908625983774000D7510 /* LSystemElementTransitionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSystemElementTransitionTests.swift; sourceTree = "<group>"; };
 		C04C908C259837B8000D7510 /* LSystemRuleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LSystemRuleTests.swift; sourceTree = "<group>"; };
+		C0A43705259E412D000E5C2E /* HeapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeapTests.swift; sourceTree = "<group>"; };
 		E1AF099F87E0D2480816256F /* Angelo.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Angelo.podspec; path = ../Angelo.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		FA4626A31A554BBAA6D009A3 /* Pods-Angelo_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Angelo_Tests.debug.xcconfig"; path = "Target Support Files/Pods-Angelo_Tests/Pods-Angelo_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -147,11 +149,9 @@
 			children = (
 				607FACEB1AFB9204008FA782 /* Tests.swift */,
 				C04C9074259835CC000D7510 /* WeightedListTests.swift */,
-				C04C9078259835D6000D7510 /* LSystemTests.swift */,
-				C04C90802598374B000D7510 /* LSystemElementTests.swift */,
-				C04C908625983774000D7510 /* LSystemElementTransitionTests.swift */,
-				C04C908C259837B8000D7510 /* LSystemRuleTests.swift */,
+				C0A43704259E4118000E5C2E /* LSystems */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
+				C0A43705259E412D000E5C2E /* HeapTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -172,6 +172,17 @@
 				1AB1CF61D32D2AE25FCCBD28 /* LICENSE */,
 			);
 			name = "Podspec Metadata";
+			sourceTree = "<group>";
+		};
+		C0A43704259E4118000E5C2E /* LSystems */ = {
+			isa = PBXGroup;
+			children = (
+				C04C9078259835D6000D7510 /* LSystemTests.swift */,
+				C04C90802598374B000D7510 /* LSystemElementTests.swift */,
+				C04C908625983774000D7510 /* LSystemElementTransitionTests.swift */,
+				C04C908C259837B8000D7510 /* LSystemRuleTests.swift */,
+			);
+			name = LSystems;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -360,6 +371,7 @@
 				C04C908725983774000D7510 /* LSystemElementTransitionTests.swift in Sources */,
 				C04C9075259835CC000D7510 /* WeightedListTests.swift in Sources */,
 				C04C9079259835D6000D7510 /* LSystemTests.swift in Sources */,
+				C0A43706259E412D000E5C2E /* HeapTests.swift in Sources */,
 				C04C908D259837B8000D7510 /* LSystemRuleTests.swift in Sources */,
 				C04C90812598374B000D7510 /* LSystemElementTests.swift in Sources */,
 				607FACEC1AFB9204008FA782 /* Tests.swift in Sources */,
