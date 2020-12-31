@@ -28,12 +28,29 @@ class ViewController: UIViewController {
             let processor = WFCTilesPreProcessor()
             let (adjacency, frequency, colorMap) = try! processor.preprocess(image: image, tileSize: (3, 3))
             
-            let solver = WFCTilesSolver(outputSize: (120, 120), rules: adjacency, frequency: frequency
+            let solver = WFCTilesSolver()
             
-            let matrix = solver.
+            var runs = 10
+            var currentRuns = 0
+            
+            var matrix: [[Int]]?
+            
+            while currentRuns < runs {
+                do {
+                    print("Doing run...")
+                    currentRuns += 1
+                    matrix = try solver.solve(rules: adjacency, frequency: frequency, outputSize: (10, 10))
+                    print("Finished!")
+                    break
+                } catch {
+                    print("Error \(error)")
+                }
+            }
+            
+            guard let imageMatrix = matrix else { return }
             
             let postprocessor = WFCTilesPostProcessor()
-            let image = postprocessor.postprocess(tileIndexMatrix: matrix, colorMap: colorMap)
+            let image = postprocessor.postprocess(tileIndexMatrix: imageMatrix, colorMap: colorMap)
             imageView.image = UIImage(cgImage: image)
         }
     }

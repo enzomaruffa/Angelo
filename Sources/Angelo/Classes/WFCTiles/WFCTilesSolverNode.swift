@@ -15,6 +15,14 @@ public class WFCTilesSolverNode {
         possibleElements.filter({ $0 }).count
     }
     
+    var onlyPossibleElement: Int {
+        possibleElements
+            .enumerated()
+            .first { (tuple) -> Bool in
+                tuple.element
+            }!.offset
+    }
+    
     var totalWeight: Double
     var sumOfWeightLogWeight: Double
     
