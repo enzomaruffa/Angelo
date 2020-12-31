@@ -30,20 +30,20 @@ class ViewController: UIViewController {
             
             let solver = WFCTilesSolver()
             
-            var runs = 10
+            var runs = 10000
             var currentRuns = 0
             
             var matrix: [[Int]]?
             
             while currentRuns < runs {
                 do {
-                    print("Doing run...")
+                    print("Doing run \(currentRuns)...")
                     currentRuns += 1
-                    matrix = try solver.solve(rules: adjacency, frequency: frequency, outputSize: (10, 10))
-                    print("Finished!")
+                    matrix = try solver.solve(rules: adjacency, frequency: frequency, outputSize: (100, 100))
+                    print(" Finished!")
                     break
                 } catch {
-                    print("Error \(error)")
+                    print(" Error \(error)")
                 }
             }
             
