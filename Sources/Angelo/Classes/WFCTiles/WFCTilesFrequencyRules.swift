@@ -14,6 +14,10 @@ public class WFCTilesFrequencyRules {
         frequency.keys.map({ $0 })
     }
     
+    var totalWeight: Int {
+        frequency.values.reduce(0, { $0 + $1 })
+    }
+    
     public func addOccurence(elementID: Int) {
         guard let val = frequency[elementID] else {
             frequency[elementID] = 1

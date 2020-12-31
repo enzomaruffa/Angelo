@@ -26,6 +26,7 @@
 		C05FD136259C57400002651C /* WFCTilesFrequencyRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05FD135259C57400002651C /* WFCTilesFrequencyRules.swift */; };
 		C05FD13E259C579E0002651C /* WFCTilesSolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05FD13D259C579E0002651C /* WFCTilesSolver.swift */; };
 		C078FAC2259D203100A61F4B /* WFCTilesPostProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C078FAC1259D203100A61F4B /* WFCTilesPostProcessor.swift */; };
+		C0A436F1259D4C27000E5C2E /* WFCTilesSolverNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A436F0259D4C27000E5C2E /* WFCTilesSolverNode.swift */; };
 		CA52A9E137D6042A3DBF250F7DD8E720 /* Pods-Angelo_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 928F545C96AF453B47E30E68F86152A6 /* Pods-Angelo_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F7C0D236AFC2FDDB26BDE28E38FEBFA0 /* Pods-Angelo_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 81280D57AA50E2DC51CC5E0A35E38F79 /* Pods-Angelo_Tests-dummy.m */; };
 /* End PBXBuildFile section */
@@ -84,6 +85,7 @@
 		C05FD13D259C579E0002651C /* WFCTilesSolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WFCTilesSolver.swift; sourceTree = "<group>"; };
 		C078FAC1259D203100A61F4B /* WFCTilesPostProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WFCTilesPostProcessor.swift; sourceTree = "<group>"; };
 		C079AEB5E28AD147C051366A6735486B /* Pods-Angelo_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Angelo_Tests.release.xcconfig"; sourceTree = "<group>"; };
+		C0A436F0259D4C27000E5C2E /* WFCTilesSolverNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WFCTilesSolverNode.swift; sourceTree = "<group>"; };
 		C172585D70F5AA7565F04AC953D0CA22 /* Pods-Angelo_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Angelo_Tests-umbrella.h"; sourceTree = "<group>"; };
 		C656645D1E7A6B4910203CB0A8621A06 /* Pods-Angelo_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Angelo_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		C79734B9743A557BABFD2A927B453619 /* Pods-Angelo_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Angelo_Example-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -248,6 +250,7 @@
 				C05FD130259C57380002651C /* WFCTilesAdjacencyRules.swift */,
 				C05FD135259C57400002651C /* WFCTilesFrequencyRules.swift */,
 				C05FD13D259C579E0002651C /* WFCTilesSolver.swift */,
+				C0A436F0259D4C27000E5C2E /* WFCTilesSolverNode.swift */,
 				C078FAC1259D203100A61F4B /* WFCTilesPostProcessor.swift */,
 			);
 			path = WFCTiles;
@@ -463,6 +466,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23D238B8C0F0A681630F55D11013F8CB /* Angelo-dummy.m in Sources */,
+				C0A436F1259D4C27000E5C2E /* WFCTilesSolverNode.swift in Sources */,
 				C078FAC2259D203100A61F4B /* WFCTilesPostProcessor.swift in Sources */,
 				C04C904B25983409000D7510 /* WeightedList.swift in Sources */,
 				C05FD129259C54560002651C /* WFCTilesPreProcessor.swift in Sources */,
