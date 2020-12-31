@@ -24,13 +24,13 @@ class ViewController: UIViewController {
         makeConstraints()
         
         // Do any additional setup after loading the view, typically from a nib.
-        if let image = UIImage(named: "process-example-rep")?.cgImage {
+        if let image = UIImage(named: "process-example")?.cgImage {
             let processor = WFCTilesPreProcessor()
             let (adjacency, frequency, colorMap) = try! processor.preprocess(image: image, tileSize: (3, 3))
             
             let solver = WFCTilesSolver()
             
-            var runs = 10000
+            var runs = 1
             var currentRuns = 0
             
             var matrix: [[Int]]?
@@ -39,7 +39,7 @@ class ViewController: UIViewController {
                 do {
                     print("Doing run \(currentRuns)...")
                     currentRuns += 1
-                    matrix = try solver.solve(rules: adjacency, frequency: frequency, outputSize: (100, 100))
+                    matrix = try solver.solve(rules: adjacency, frequency: frequency, outputSize: (120, 120))
                     print(" Finished!")
                     break
                 } catch {

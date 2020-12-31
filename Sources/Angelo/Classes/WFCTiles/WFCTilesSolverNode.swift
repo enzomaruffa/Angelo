@@ -15,12 +15,12 @@ public class WFCTilesSolverNode {
         possibleElements.filter({ $0 }).count
     }
     
-    var onlyPossibleElement: Int {
+    var onlyPossibleElement: Int? {
         possibleElements
             .enumerated()
             .first { (tuple) -> Bool in
                 tuple.element
-            }!.offset
+            }?.offset
     }
     
     var totalWeight: Double
@@ -61,19 +61,25 @@ public class WFCTilesSolverNode {
     }
     
     public func calculateEntropy(frequency: WFCTilesFrequencyRules) -> Double {
+//        print(" Current total weight: \(totalWeight)")
+//        print(" Calculated entropy: \(log2(totalWeight) - (sumOfWeightLogWeight / totalWeight) + entropyNoise)")
         return log2(totalWeight) - (sumOfWeightLogWeight / totalWeight) + entropyNoise
     }
     
     public func chooseTile(frequency: WFCTilesFrequencyRules) -> Int {
         let list = WeightedList<Int>()
         
+//        print("     Possible elements to choose: \(possibleElements)")
+        
         // TODO: Proper error handling
-        possibleElements.enumerated().forEach { (tile) in
-            // Tile is still possible
-            if tile.element {
-                let elementID = tile.offset
-                try! list.add(elementID, weight: Double(frequency.getFrequency(forElementID: elementID)!))
-            }
+        possibleElements.enumerated()
+            .filter({ $0.element })
+            .forEach { (tile) in
+                // Tile is still possible
+                if tile.element {
+                    let elementID = tile.offset
+                    try! list.add(elementID, weight: Double(frequency.getFrequency(forElementID: elementID)!))
+                }
         }
         
         return list.randomElement()!

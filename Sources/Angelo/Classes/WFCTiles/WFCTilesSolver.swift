@@ -46,13 +46,36 @@ public class WFCTilesSolver {
         return enablers
     }
     
+    internal func createOutputGrid() -> [[Int]] {
+        var outputGrid = [[Int]]()
+        
+        for i in 0..<grid![0].count {
+            var outputGridRow = [Int]()
+            
+            for j in 0..<grid![0].count {
+                let node = grid![i][j]
+                
+                guard let element = node.onlyPossibleElement else {
+                    outputGridRow.append(-1)
+                    continue
+                }
+                
+                outputGridRow.append(element)
+            }
+            
+            outputGrid.append(outputGridRow)
+        }
+        
+        return outputGrid
+    }
+    
     public func solve(rules: WFCTilesAdjacencyRules, frequency: WFCTilesFrequencyRules, outputSize: (Int, Int)) throws -> [[Int]] {
 
         self.nodesToCollapse = outputSize.0 * outputSize.1
         self.rules = rules
         self.frequency = frequency
         
-        entropyHeap = Heap<WFCTilesNodeHeapElement>(priorityFunction: >)
+        entropyHeap = Heap<WFCTilesNodeHeapElement>(priorityFunction: <)
         
         grid = []
         nodeRemovalQueue = []
@@ -89,26 +112,18 @@ public class WFCTilesSolver {
         
         // Transform the grid in a elementID grid
 //        print("Creating output grid...")
-        var outputGrid = [[Int]]()
-        
-        for i in 0..<outputSize.0 {
-            var outputGridRow = [Int]()
-            
-            for j in 0..<outputSize.0 {
-                let node = grid![i][j]
-                outputGridRow.append(node.onlyPossibleElement)
-            }
-            
-            outputGrid.append(outputGridRow)
-        }
+        var outputGrid = createOutputGrid()
         
         return outputGrid
     }
     
     internal func chooseNode() throws -> (i: Int, j: Int) {
         while let element = entropyHeap!.dequeue() {
+//            print(" Choosing node at \(element.coord)")
+//            print("         Entropy: \(element.entropy)")
             let coord = element.coord
             let node = grid![coord.i][coord.j]
+//            print("         Collapsed? \(node.collapsed)")
             if !node.collapsed {
                 return coord
             }
@@ -126,12 +141,15 @@ public class WFCTilesSolver {
         node.collapsed = true
         
         // remove all other possibilities
-        node.possibleElements.enumerated().forEach { (tuple) in
-            if tuple.offset != elementID {
-                // Disabling the element explicitely in the array to prevent a new entropy calculation (not needed since the cell is collapsed by now)
-                node.possibleElements[tuple.offset] = false
-                
-                nodeRemovalQueue!.append(WFCTilesRemovalUpdate(elementID: tuple.offset, coord: at))
+        node.possibleElements
+            .enumerated()
+            .filter({ $0.element })
+            .forEach { (tuple) in
+                if tuple.offset != elementID {
+                    // Disabling the element explicitely in the array to prevent a new entropy calculation (not needed since the cell is collapsed by now)
+                    node.possibleElements[tuple.offset] = false
+                    
+                    nodeRemovalQueue!.append(WFCTilesRemovalUpdate(elementID: tuple.offset, coord: at))
             }
         }
         
@@ -199,7 +217,13 @@ public class WFCTilesSolver {
                             
                             // check for contradiction
                             if neighbourNode.possibleElementsCount == 0 {
-                                print("Node at \(nodeCoord) has no more possibleElementsCount...")
+                                
+                                let outputGrid = createOutputGrid()
+                                
+                                for row in outputGrid {
+                                    print(row)
+                                }
+                                
                                 throw WFCErrors.ImpossibleSolution
                             }
                             
@@ -207,8 +231,7 @@ public class WFCTilesSolver {
                             let entropy = neighbourNode.calculateEntropy(frequency: frequency!)
                             let heapElement = WFCTilesNodeHeapElement(entropy: entropy, coord: neighbourCoord)
                             entropyHeap!.enqueue(heapElement)
-                            
-                            // add the update to the stack
+//                            print("     Adding node at \(neighbourCoord) with entropy \(entropy)")
                             
                             // If our neighbour is not collapsed, add the element removal to the queue
                             if !neighbourNode.collapsed {
