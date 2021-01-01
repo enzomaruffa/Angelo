@@ -53,7 +53,8 @@ public class WFCTilesPostProcessor {
                                   shouldInterpolate: true,
                                   intent: CGColorRenderingIntent.defaultIntent)!
         
-        
         return image
     }
+    
+    // TODO: Add returns for not only a final image, but a color matrix and only the rgb values
 }

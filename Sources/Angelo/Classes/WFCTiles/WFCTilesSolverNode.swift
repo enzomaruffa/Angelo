@@ -61,15 +61,11 @@ public class WFCTilesSolverNode {
     }
     
     public func calculateEntropy(frequency: WFCTilesFrequencyRules) -> Double {
-//        print(" Current total weight: \(totalWeight)")
-//        print(" Calculated entropy: \(log2(totalWeight) - (sumOfWeightLogWeight / totalWeight) + entropyNoise)")
         return log2(totalWeight) - (sumOfWeightLogWeight / totalWeight) + entropyNoise
     }
     
     public func chooseTile(frequency: WFCTilesFrequencyRules) -> Int {
         let list = WeightedList<Int>()
-        
-//        print("     Possible elements to choose: \(possibleElements)")
         
         // TODO: Proper error handling
         possibleElements.enumerated()

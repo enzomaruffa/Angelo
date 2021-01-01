@@ -9,6 +9,7 @@ import Foundation
 
 public class WFCTilesSolver {
     
+    /// All properties from the solver are set on the `solve()` method
     var grid: [[WFCTilesSolverNode]]? = nil
     
     var nodesToCollapse: Int? = nil
@@ -20,25 +21,27 @@ public class WFCTilesSolver {
     
     var nodeRemovalQueue: [WFCTilesRemovalUpdate]? = nil
     
-    public init() {
-        
-    }
+    public init() { }
     
+    // Creates the node enablers
     func createSolverNodeEnablers(elementsCount: Int, adjacency: WFCTilesAdjacencyRules) -> [WFCTilesSolverNodeEnabler] {
         
         var enablers = [WFCTilesSolverNodeEnabler]()
         
+        // For each element we have
         for elementID in 0..<elementsCount {
-//            print("Checking element with ID \(elementID)")
             var baseEnabler = WFCTilesSolverNodeEnabler()
             
+            // And for each direction
             for direction in baseEnabler.byDirection.keys {
-                for aID in adjacency.allElements(canAppearRelativeTo: elementID, inDirection: direction) {
-//                    print("     aID \(aID) can appear to the \(direction) of \(elementID)")
+                
+                // Check each element that can appear in that direction relative to this one
+                for _ in adjacency.allElements(canAppearRelativeTo: elementID, inDirection: direction) {
+                    
+                    // Since an element can appear on that direction, that means that element "enables" this element
                     baseEnabler.byDirection[direction] = baseEnabler.byDirection[direction]! + 1
                 }
             }
-//            print(" Final enabler for \(elementID): \(baseEnabler.byDirection)")
             
             enablers.append(baseEnabler)
         }
@@ -55,6 +58,7 @@ public class WFCTilesSolver {
             for j in 0..<grid![0].count {
                 let node = grid![i][j]
                 
+                // Creates an output grid, but if an element has no element possible it returns -1
                 guard let element = node.onlyPossibleElement else {
                     outputGridRow.append(-1)
                     continue
@@ -71,6 +75,7 @@ public class WFCTilesSolver {
     
     public func solve(rules: WFCTilesAdjacencyRules, frequency: WFCTilesFrequencyRules, outputSize: (Int, Int)) throws -> [[Int]] {
 
+        // Initializes the values from the solver
         self.nodesToCollapse = outputSize.0 * outputSize.1
         self.rules = rules
         self.frequency = frequency
@@ -83,7 +88,7 @@ public class WFCTilesSolver {
         let possibleElements = frequency.keys
         let possibleElementsBools = possibleElements.map({ _ in true })
         
-        // Initialize solverNodeEnablers
+        // Creates the enablers (will be copied for each node)
         let solverNodeEnablers = createSolverNodeEnablers(elementsCount: possibleElements.count, adjacency: rules)
         
         // Initialize the grid and the nodes
@@ -107,28 +112,25 @@ public class WFCTilesSolver {
         entropyHeap!.enqueue(heapElement)
         
         // Run the algorithm
-//        print("Prepared to run...")
         try run()
         
         // Transform the grid in a elementID grid
-//        print("Creating output grid...")
-        var outputGrid = createOutputGrid()
+        let outputGrid = createOutputGrid()
         
         return outputGrid
     }
     
     internal func chooseNode() throws -> (i: Int, j: Int) {
         while let element = entropyHeap!.dequeue() {
-//            print(" Choosing node at \(element.coord)")
-//            print("         Entropy: \(element.entropy)")
             let coord = element.coord
             let node = grid![coord.i][coord.j]
-//            print("         Collapsed? \(node.collapsed)")
+            
             if !node.collapsed {
                 return coord
             }
         }
         
+        // TODO: This might happen if the first randomly select element doesn't change the entropy (in other words, removes no possible element) from the neighbours. A possible solution is to select another random element
         throw WFCErrors.EmptyHeap
     }
 
@@ -136,14 +138,12 @@ public class WFCTilesSolver {
         let node = grid![at.i][at.j]
         let elementID = node.chooseTile(frequency: frequency!)
         
-//        print("Selected element with id \(elementID) at \(at)")
-        
         node.collapsed = true
         
-        // remove all other possibilities
+        // Removes all other possibilities
         node.possibleElements
             .enumerated()
-            .filter({ $0.element })
+            .filter({ $0.element }) // Only considers the ones that are possible to prevent double removal
             .forEach { (tuple) in
                 if tuple.offset != elementID {
                     // Disabling the element explicitely in the array to prevent a new entropy calculation (not needed since the cell is collapsed by now)
@@ -156,6 +156,8 @@ public class WFCTilesSolver {
     }
     
     internal func getNeighbourCoord(coord: (i: Int, j: Int), direction: WFCTilesDirection) -> (i: Int, j: Int)? {
+        
+        // Gets the neighbour coordinates from the original element
         switch direction {
         case .up:
             if coord.i-1 < 0 {
@@ -181,11 +183,10 @@ public class WFCTilesSolver {
     }
 
     internal func propagate() throws {
+        
+        // While an update hasn't been processed
         while !nodeRemovalQueue!.isEmpty {
-//            print("nodeRemovalQueue has \(nodeRemovalQueue?.count) nodes")
-            
             let nodeRemoval = nodeRemovalQueue!.removeFirst()
-//            print("====\nAnalyzing \(nodeRemoval.elementID), \(nodeRemoval.coord) removal")
             
             for direction in WFCTilesDirection.allCases {
                 let nodeCoord = nodeRemoval.coord
@@ -194,36 +195,32 @@ public class WFCTilesSolver {
                     continue
                 }
                 
-//                print("Neighbour node is \(neighbourCoord)")
-                
                 let neighbourNode = grid![neighbourCoord.i][neighbourCoord.j]
                 
-//                print("Neighbour node has \(neighbourNode.possibleElementsCount) possible elements")
-                
-//                print("  Compatible tiles in the neighbour with \(nodeRemoval.elementID): \(rules!.allElements(canAppearRelativeTo: nodeRemoval.elementID, inDirection: direction))")
                 for compatibleTile in rules!.allElements(canAppearRelativeTo: nodeRemoval.elementID, inDirection: direction) {
                     
-                    // look up the count of enablers for this tile
+                    // Look up the count of enablers for this tile
                     var enablerCounts = neighbourNode.solverNodeEnablers[compatibleTile]
                     
+                    // Change to the opposite direction (we are now looking from the perspective of the neighbour
                     let oppositeDirection = direction.opposite
                     
-                    // check if we're about to decrement this to 0
+                    // Check if we're about to decrement this to 0
                     if enablerCounts.byDirection[oppositeDirection] == 1 {
-//                        print("     Enabler for \(compatibleTile) in direction \(oppositeDirection) only had 1 enabler to go! Disabling it...")
                         
+                        // We only need to discard this element from this direction if it hasn't been discarded yet by another direction
                         if !enablerCounts.containsAnyZero {
                             neighbourNode.removeTile(elementID: compatibleTile, frequency: frequency!)
                             
-                            // check for contradiction
+                            // Check for contradiction
                             if neighbourNode.possibleElementsCount == 0 {
-                                
-                                let outputGrid = createOutputGrid()
-                                
-                                for row in outputGrid {
-                                    print(row)
-                                }
-                                
+//                                let outputGrid = createOutputGrid()
+//
+//                                for row in outputGrid {
+//                                    print(row)
+//                                }
+//
+                                // TODO: Return the matrix as a enum property
                                 throw WFCErrors.ImpossibleSolution
                             }
                             
@@ -231,37 +228,30 @@ public class WFCTilesSolver {
                             let entropy = neighbourNode.calculateEntropy(frequency: frequency!)
                             let heapElement = WFCTilesNodeHeapElement(entropy: entropy, coord: neighbourCoord)
                             entropyHeap!.enqueue(heapElement)
-//                            print("     Adding node at \(neighbourCoord) with entropy \(entropy)")
                             
                             // If our neighbour is not collapsed, add the element removal to the queue
+                            // TODO: Check if doing this verification sooner isn't already ok
                             if !neighbourNode.collapsed {
-//                                print("     Pushing \(compatibleTile), \(neighbourCoord) removal")
                                 nodeRemovalQueue!.append(WFCTilesRemovalUpdate(elementID: compatibleTile, coord: neighbourCoord))
                             }
                         }
                     }
                     
-//                    print("     Enabler for \(compatibleTile) had \(enablerCounts.byDirection[oppositeDirection]!). Now it has \(enablerCounts.byDirection[oppositeDirection]! - 1)")
                     enablerCounts.byDirection[oppositeDirection] = enablerCounts.byDirection[oppositeDirection]! - 1
                     
+                    // Return the enabler to the node (Swift copies since it's a struct)
                     neighbourNode.solverNodeEnablers[compatibleTile] = enablerCounts
                 }
-                
-//                print("Neighbour node still has \(neighbourNode.possibleElementsCount) possible elements")
             }
         }
     }
 
     internal func run() throws {
         while nodesToCollapse! > 0 {
-//            print("Still \(nodesToCollapse!) nodesToCollapse...")
-            
             let (i, j) = try self.chooseNode()
             
-//            print("Collapsing node at (\(i), \(j))")
             collapseNode(at: (i, j))
             
-//            print("Propagating...")
             try propagate()
             
             nodesToCollapse! -= 1
