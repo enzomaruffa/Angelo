@@ -24,7 +24,8 @@ class ViewController: UIViewController {
         [result1, result2, result3, result4, result5, result6]
     }
     
-    let imageName = "process-example"
+    var i = 0
+    let images = ["process-example", "process-example-rep", "plant", "plant2", "plant3"]
     let tileSize = (3, 3)
     
     var inputs: (rules: WFCTilesAdjacencyRules, frequency: WFCTilesFrequencyRules, tilesColorMap: [Int: CGColor])!
@@ -37,18 +38,11 @@ class ViewController: UIViewController {
         }
         templateImageView.layer.magnificationFilter = kCAFilterNearest
         
-        let uiImage = UIImage(named: "process-example")
-        templateImageView.image = uiImage
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        if let image = UIImage(named: "process-example")?.cgImage {
-            let processor = WFCTilesPreProcessor()
-            inputs = try! processor.preprocess(image: image, tileSize: tileSize)
-        }
+        let name = images[i]
+        setImage(named: name)
     }
     
     @IBAction func generateTapped(_ sender: Any) {
-        
         let image = templateImageView.image
         
         let xScale = (image?.size.width)! / templateImageView.frame.width
@@ -58,14 +52,32 @@ class ViewController: UIViewController {
             let imageViewXSize = imageView.frame.width * xScale
             let imageViewYSize = imageView.frame.height * yScale
             
-            
             guard let image = createImage(withSize: (Int(imageViewXSize), Int(imageViewYSize))) else {
                 continue
             }
             
             imageView.image = UIImage(cgImage: image)
         }
+    }
+    
+    @IBAction func nextImage(_ sender: Any) {
+        i += 1
+        if i >= images.count {
+            i = 0
+        }
         
+        setImage(named: images[i])
+    }
+    
+    func setImage(named: String) {
+        let uiImage = UIImage(named: named)
+        templateImageView.image = uiImage
+        
+        // Do any additional setup after loading the view, typically from a nib.
+        if let image = UIImage(named: named)?.cgImage {
+            let processor = WFCTilesPreProcessor()
+            inputs = try! processor.preprocess(image: image, tileSize: tileSize)
+        }
     }
     
     func createImage(withSize size: (Int, Int)) -> CGImage? {

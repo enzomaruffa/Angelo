@@ -52,7 +52,7 @@ public class WFCTilesSolver {
     internal func createOutputGrid() -> [[Int]] {
         var outputGrid = [[Int]]()
         
-        for i in 0..<grid![0].count {
+        for i in 0..<grid!.count {
             var outputGridRow = [Int]()
             
             for j in 0..<grid![0].count {
