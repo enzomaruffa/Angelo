@@ -34,8 +34,6 @@ public class WFCTilesPostProcessor {
             }
         }
         
-        print(pixelData)
-        
         let colorspace = CGColorSpaceCreateDeviceRGB()
         
         let rgbData = CFDataCreate(nil, pixelData, numBytes)!

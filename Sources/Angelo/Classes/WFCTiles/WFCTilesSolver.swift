@@ -143,7 +143,7 @@ public class WFCTilesSolver {
         // Removes all other possibilities
         node.possibleElements
             .enumerated()
-            .filter({ $0.element }) // Only considers the ones that are possible to prevent double removal
+            .filter({ $0.element }) // NOTE: Tutorial didn't do this. Only considers the ones that are possible to prevent double removal
             .forEach { (tuple) in
                 if tuple.offset != elementID {
                     // Disabling the element explicitely in the array to prevent a new entropy calculation (not needed since the cell is collapsed by now)
@@ -214,12 +214,7 @@ public class WFCTilesSolver {
                             
                             // Check for contradiction
                             if neighbourNode.possibleElementsCount == 0 {
-//                                let outputGrid = createOutputGrid()
-//
-//                                for row in outputGrid {
-//                                    print(row)
-//                                }
-//
+                                
                                 // TODO: Return the matrix as a enum property
                                 throw WFCErrors.ImpossibleSolution
                             }
@@ -229,6 +224,7 @@ public class WFCTilesSolver {
                             let heapElement = WFCTilesNodeHeapElement(entropy: entropy, coord: neighbourCoord)
                             entropyHeap!.enqueue(heapElement)
                             
+                            // NOTE: Added since tutorial didn't do it
                             // If our neighbour is not collapsed, add the element removal to the queue
                             // TODO: Check if doing this verification sooner isn't already ok
                             if !neighbourNode.collapsed {

@@ -37,13 +37,13 @@ class ViewController: UIViewController {
             
             while currentRuns < runs {
                 do {
-                    print("Doing run \(currentRuns)...")
+//                    print("Doing run \(currentRuns)...")
                     currentRuns += 1
                     matrix = try solver.solve(rules: adjacency, frequency: frequency, outputSize: (120, 120))
-                    print(" Finished!")
+//                    print(" Finished!")
                     break
                 } catch {
-                    print(" Error \(error)")
+//                    print(" Error \(error)")
                 }
             }
             

@@ -15,7 +15,7 @@ public class WFCTilesAdjacencyRules {
         
         if rules[rule] == nil {
             rules[rule] = true
-            print("Added rule: \(aID) can appear to the \(direction) of \(bID)")
+//            print("Added rule: \(aID) can appear to the \(direction) of \(bID)")
         }
     }
     
