@@ -170,12 +170,12 @@ public class WFCTilesSolver {
             }
             return (coord.i, coord.j-1)
         case .right:
-            if coord.j+1 >= grid!.count {
+            if coord.j+1 >= grid![0].count {
                 return nil
             }
             return (coord.i, coord.j+1)
         case .down:
-            if coord.i+1 >= grid![0].count {
+            if coord.i+1 >= grid!.count {
                 return nil
             }
             return (coord.i+1, coord.j)
