@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     }
     
     var i = 0
-    let images = ["process-example", "process-example-rep", "plant", "plant2", "plant3"]
+    let images = ["test", "test3", "process-example", "process-example-rep"]
     let tileSize = (3, 3)
     
     var inputs: (rules: WFCTilesAdjacencyRules, frequency: WFCTilesFrequencyRules, tilesColorMap: [Int: CGColor])!
@@ -44,18 +44,18 @@ class ViewController: UIViewController {
     
     @IBAction func generateTapped(_ sender: Any) {
         let image = templateImageView.image
-        
+
         let xScale = (image?.size.width)! / templateImageView.frame.width
         let yScale = (image?.size.height)! / templateImageView.frame.height
-        
+
         for imageView in resultImageViews {
             let imageViewXSize = imageView.frame.width * xScale
             let imageViewYSize = imageView.frame.height * yScale
-            
+
             guard let image = createImage(withSize: (Int(imageViewXSize), Int(imageViewYSize))) else {
                 continue
             }
-            
+
             imageView.image = UIImage(cgImage: image)
         }
     }

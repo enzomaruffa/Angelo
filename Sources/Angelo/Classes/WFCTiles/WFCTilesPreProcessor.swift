@@ -80,9 +80,14 @@ public class WFCTilesPreProcessor {
         // Generates adjacency rules
         let adjacencyRules = WFCTilesAdjacencyRules()
         
+        var i = 0
+        
         for tile in tiles {
             for relatedTile in tiles {
+
                 for direction in WFCTilesDirection.allCases {
+                    
+                    i += 1
                     
                     var iOffset = 0
                     var jOffset = 0
@@ -93,10 +98,10 @@ public class WFCTilesPreProcessor {
                         iOffset = 1
                     case .left:
                         // Compare tile pixels 1, 2, 4, 5, 7, 8 with relatedTile pixels 2, 3, 5, 6, 8, 9. If equal, add rule
-                        jOffset = -1
+                        jOffset = 1
                     case .right:
                         // Compare tile pixels 2, 3, 5, 6, 8, 9 with relatedTile pixels 1, 2, 4, 5, 7, 8. If equal, add rule
-                        jOffset = 1
+                        jOffset = -1
                     case .down:
                         // Compare tile pixels 1, 2, 3, 4, 5, 6 with relatedTile pixels 4, 5, 6, 7, 8, 9. If equal, add rule
                         iOffset = -1
@@ -126,7 +131,7 @@ public class WFCTilesPreProcessor {
                     }
                     
                     if willAddRule {
-                        adjacencyRules.addRule(aID: uniqueTiles[tile]!, canAppearRelativeToB: uniqueTiles[relatedTile]!, inDirection: direction)
+                        adjacencyRules.addRule(aID: uniqueTiles[relatedTile]!, canAppearRelativeToB: uniqueTiles[tile]!, inDirection: direction)
                     }
                 }
             }
