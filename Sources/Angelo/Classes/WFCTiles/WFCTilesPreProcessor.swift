@@ -77,14 +77,19 @@ public class WFCTilesPreProcessor {
             }
         }
         
+        let adjacencyTiles = uniqueTiles.keys
+        
         // Generates adjacency rules
         let adjacencyRules = WFCTilesAdjacencyRules()
         
         var i = 0
         
-        for tile in tiles {
-            for relatedTile in tiles {
-
+        print("Tiles count: \(adjacencyTiles.count)")
+        print("Directions: \(WFCTilesDirection.allCases.count)")
+        print("Comparisons to make \(adjacencyTiles.count * adjacencyTiles.count * WFCTilesDirection.allCases.count)")
+        for tile in adjacencyTiles {
+//            print("Done \(i)")
+            for relatedTile in adjacencyTiles {
                 for direction in WFCTilesDirection.allCases {
                     
                     i += 1

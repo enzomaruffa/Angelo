@@ -25,7 +25,7 @@ class ViewController: UIViewController {
     }
     
     var i = 0
-    let images = ["test", "test3", "process-example", "process-example-rep"]
+    let images = ["process-example-rep", "casinha", "city", "test", "test3", "process-example", "walkway"]
     let tileSize = (3, 3)
     
     var inputs: (rules: WFCTilesAdjacencyRules, frequency: WFCTilesFrequencyRules, tilesColorMap: [Int: CGColor])!
@@ -113,4 +113,3 @@ class ViewController: UIViewController {
     }
     
 }
-
