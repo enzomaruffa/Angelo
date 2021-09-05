@@ -30,7 +30,7 @@ public class WFCTilesSolver {
         
         // For each element we have
         for elementID in 0..<elementsCount {
-            var baseEnabler = WFCTilesSolverNodeEnabler()
+            let baseEnabler = WFCTilesSolverNodeEnabler()
             
             // And for each direction
             for direction in baseEnabler.byDirection.keys {
@@ -39,9 +39,11 @@ public class WFCTilesSolver {
                 for _ in adjacency.allElements(canAppearRelativeTo: elementID, inDirection: direction) {
                     
                     // Since an element can appear on that direction, that means that element "enables" this element
-                    baseEnabler.byDirection[direction] = baseEnabler.byDirection[direction]! + 1
+                    baseEnabler.incrementEnabler(inDirection: direction)
                 }
             }
+            
+            baseEnabler.updateZeroCount()
             
             enablers.append(baseEnabler)
         }
@@ -185,6 +187,30 @@ public class WFCTilesSolver {
         }
     }
 
+    fileprivate func removeTile(_ neighbourNode: WFCTilesSolverNode, _ compatibleTile: Int, _ neighbourCoord: (i: Int, j: Int)) throws {
+        
+        neighbourNode.removeTile(elementID: compatibleTile, frequency: frequency!)
+        
+        // Check for contradiction
+        if neighbourNode.possibleElementsCount == 0 {
+            
+            // TODO: Return the matrix as a enum property
+            throw WFCErrors.ImpossibleSolution
+        }
+        
+        // Add to the heap
+        let entropy = neighbourNode.calculateEntropy(frequency: frequency!)
+        let heapElement = WFCTilesNodeHeapElement(entropy: entropy, coord: neighbourCoord)
+        entropyHeap!.enqueue(heapElement)
+        
+        // NOTE: Added since tutorial didn't do it
+        // If our neighbour is not collapsed, add the element removal to the queue
+        // TODO: Check if doing this verification sooner isn't already ok
+        if !neighbourNode.collapsed {
+            nodeRemovalQueue!.append(WFCTilesRemovalUpdate(elementID: compatibleTile, coord: neighbourCoord))
+        }
+    }
+    
     internal func propagate() throws {
         
         // While an update hasn't been processed
@@ -200,46 +226,25 @@ public class WFCTilesSolver {
                 
                 let neighbourNode = grid![neighbourCoord.i][neighbourCoord.j]
                 
+                // If the neighbour node ahs already collapsed, we don't need to update any properties it has
+                if (neighbourNode.collapsed) { continue }
+                
                 for compatibleTile in rules!.allElements(canAppearRelativeTo: nodeRemoval.elementID, inDirection: direction) {
                     
                     // Look up the count of enablers for this tile
-                    var enablerCounts = neighbourNode.solverNodeEnablers[compatibleTile]
+                    let enablerCounts = neighbourNode.solverNodeEnablers[compatibleTile]
                     
                     // Change to the opposite direction (we are now looking from the perspective of the neighbour
                     let oppositeDirection = direction.opposite
                     
                     // Check if we're about to decrement this to 0
-                    if enablerCounts.byDirection[oppositeDirection] == 1 {
-                        
-                        // We only need to discard this element from this direction if it hasn't been discarded yet by another direction
-                        if !enablerCounts.containsAnyZero {
-                            neighbourNode.removeTile(elementID: compatibleTile, frequency: frequency!)
-                            
-                            // Check for contradiction
-                            if neighbourNode.possibleElementsCount == 0 {
-                                
-                                // TODO: Return the matrix as a enum property
-                                throw WFCErrors.ImpossibleSolution
-                            }
-                            
-                            // Add to the heap
-                            let entropy = neighbourNode.calculateEntropy(frequency: frequency!)
-                            let heapElement = WFCTilesNodeHeapElement(entropy: entropy, coord: neighbourCoord)
-                            entropyHeap!.enqueue(heapElement)
-                            
-                            // NOTE: Added since tutorial didn't do it
-                            // If our neighbour is not collapsed, add the element removal to the queue
-                            // TODO: Check if doing this verification sooner isn't already ok
-                            if !neighbourNode.collapsed {
-                                nodeRemovalQueue!.append(WFCTilesRemovalUpdate(elementID: compatibleTile, coord: neighbourCoord))
-                            }
-                        }
+                    // We only need to discard this element from this direction if it hasn't been discarded yet by another direction
+                    if enablerCounts.byDirection[oppositeDirection] == 1
+                        && !enablerCounts.containsAnyZero {
+                        try removeTile(neighbourNode, compatibleTile, neighbourCoord)
                     }
                     
-                    enablerCounts.byDirection[oppositeDirection] = enablerCounts.byDirection[oppositeDirection]! - 1
-                    
-                    // Return the enabler to the node (Swift copies since it's a struct)
-                    neighbourNode.solverNodeEnablers[compatibleTile] = enablerCounts
+                    enablerCounts.decrementEnabler(inDirection: oppositeDirection)
                 }
             }
         }

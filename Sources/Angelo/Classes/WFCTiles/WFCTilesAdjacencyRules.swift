@@ -27,7 +27,7 @@ public class WFCTilesAdjacencyRules {
             indexedRules[index] = [aID]
         }
     }
-    
+
     public func checkRule(aID: Int, canAppearRelativeToB bID: Int, inDirection direction: WFCTilesDirection) -> Bool {
         let rule = WFCTilesAdjacencyRule(aID: aID, bID: bID, direction: direction)
         

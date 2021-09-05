@@ -104,25 +104,55 @@ public class WFCTilesSolverNode {
 }
 
 class WFCTilesSolverNodeEnabler: NSObject, NSCopying {
-    
     var byDirection = [WFCTilesDirection: Int]()
     
+    private var zeroCount = 0
+    
     var containsAnyZero: Bool {
-        byDirection.values.filter({ $0 == 0 }).first != nil
+        zeroCount > 0
     }
     
     override init() {
         for direction in WFCTilesDirection.allCases {
             byDirection[direction] = 0
         }
+        
+        zeroCount = byDirection.values.filter({ $0 == 0 }).count
+        
+        super.init()
     }
     
-    init(byDirection: [WFCTilesDirection: Int]) {
+    init(byDirection: [WFCTilesDirection: Int], zeroCount: Int) {
         self.byDirection = byDirection
+        self.zeroCount = zeroCount
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = WFCTilesSolverNodeEnabler(byDirection: byDirection)
+        let copy = WFCTilesSolverNodeEnabler(byDirection: byDirection, zeroCount: zeroCount)
         return copy
+    }
+    
+    func updateDirection(_ direction: WFCTilesDirection, to value: Int) {
+        byDirection[direction] = value
+    }
+    
+    func updateZeroCount() {
+        zeroCount = byDirection.values.filter({ $0 == 0 }).count
+    }
+    
+    func decrementEnabler(inDirection direction: WFCTilesDirection) {
+        let previousValue = byDirection[direction]!
+        let newValue = previousValue - 1
+        
+        updateDirection(direction, to: newValue)
+        
+        if (newValue == 0) {
+            zeroCount += 1
+        }
+    }
+    
+    func incrementEnabler(inDirection direction: WFCTilesDirection) {
+        let previousValue = byDirection[direction]!
+        updateDirection(direction, to: previousValue + 1)
     }
 }
