@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vXZ-lx-hvc">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -39,31 +39,31 @@
                                     <constraint firstAttribute="width" constant="80" id="dYJ-Ci-7fU"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ibe-C7-Zi2">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ibe-C7-Zi2">
                                 <rect key="frame" x="147.5" y="217.5" width="80" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="f1R-w3-rGy"/>
                                 </constraints>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pDT-RW-iBI">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pDT-RW-iBI">
                                 <rect key="frame" x="242.5" y="217.5" width="117.5" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fOa-a1-UMh">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fOa-a1-UMh">
                                 <rect key="frame" x="15" y="217.5" width="117.5" height="80"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KaL-cY-uvC">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KaL-cY-uvC">
                                 <rect key="frame" x="15" y="312.5" width="165" height="165"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="KaL-cY-uvC" secondAttribute="height" multiplier="1:1" id="cOV-92-oU1"/>
                                 </constraints>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="ZHX-1a-s9f">
-                                <rect key="frame" x="15" y="492.5" width="345" height="159.5"/>
+                                <rect key="frame" x="15" y="232.5" width="345" height="419.5"/>
                             </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1d5-qN-y5b">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1d5-qN-y5b">
                                 <rect key="frame" x="195" y="312.5" width="165" height="165"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="WaveFunction Collapse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="rMb-9X-fS3">
@@ -97,6 +97,7 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="ZHX-1a-s9f" firstAttribute="top" secondItem="kSf-Wy-3YT" secondAttribute="bottom" constant="20" id="1Ej-0c-gEN"/>
                             <constraint firstItem="twq-eN-ucI" firstAttribute="top" secondItem="H6M-Lx-eOM" secondAttribute="bottom" constant="5" id="25l-Bx-H9s"/>
                             <constraint firstItem="ZHX-1a-s9f" firstAttribute="leading" secondItem="KaL-cY-uvC" secondAttribute="leading" id="3xq-oO-aq2"/>
                             <constraint firstItem="rMb-9X-fS3" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="10" id="4JP-3B-k8G"/>
@@ -129,7 +130,6 @@
                             <constraint firstItem="FH8-w5-btZ" firstAttribute="leading" secondItem="fOa-a1-UMh" secondAttribute="leading" id="non-pf-L8G"/>
                             <constraint firstItem="kSf-Wy-3YT" firstAttribute="top" secondItem="FH8-w5-btZ" secondAttribute="bottom" constant="5" id="okA-fa-KFh"/>
                             <constraint firstItem="rMb-9X-fS3" firstAttribute="leading" secondItem="kSf-Wy-3YT" secondAttribute="leading" id="onD-8d-MrK"/>
-                            <constraint firstItem="ZHX-1a-s9f" firstAttribute="top" secondItem="KaL-cY-uvC" secondAttribute="bottom" constant="15" id="qOa-kg-OlP"/>
                             <constraint firstItem="KaL-cY-uvC" firstAttribute="trailing" secondItem="ibe-C7-Zi2" secondAttribute="centerX" constant="-7.5" id="rPl-t2-n5B"/>
                             <constraint firstItem="ibe-C7-Zi2" firstAttribute="top" secondItem="kSf-Wy-3YT" secondAttribute="bottom" constant="5" id="tSq-2Q-Hml"/>
                             <constraint firstItem="FH8-w5-btZ" firstAttribute="trailing" secondItem="pDT-RW-iBI" secondAttribute="trailing" id="tbN-PA-ciy"/>
@@ -150,7 +150,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-114" y="-51"/>
+            <point key="canvasLocation" x="-114.40000000000001" y="-51.724137931034484"/>
         </scene>
     </scenes>
     <resources>

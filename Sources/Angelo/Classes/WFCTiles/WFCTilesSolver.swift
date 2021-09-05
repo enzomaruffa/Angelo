@@ -92,9 +92,9 @@ public class WFCTilesSolver {
         let solverNodeEnablers = createSolverNodeEnablers(elementsCount: possibleElements.count, adjacency: rules)
         
         // Initialize the grid and the nodes
-        for _ in 0..<outputSize.0 {
+        for _ in 0..<outputSize.1 {
             var gridRow = [WFCTilesSolverNode]()
-            for _ in 0..<outputSize.1 {
+            for _ in 0..<outputSize.0 {
                 let node = WFCTilesSolverNode(possibleElements: possibleElementsBools, solverNodeEnablers: solverNodeEnablers, frequency: frequency)
                 gridRow.append(node)
             }
@@ -147,7 +147,7 @@ public class WFCTilesSolver {
             .forEach { (tuple) in
                 if tuple.offset != elementID {
                     // Disabling the element explicitely in the array to prevent a new entropy calculation (not needed since the cell is collapsed by now)
-                    node.possibleElements[tuple.offset] = false
+                    node.disableElement(at: tuple.offset)
                     
                     nodeRemovalQueue!.append(WFCTilesRemovalUpdate(elementID: tuple.offset, coord: at))
             }

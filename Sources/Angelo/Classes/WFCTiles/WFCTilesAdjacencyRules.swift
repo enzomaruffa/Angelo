@@ -10,12 +10,21 @@ import Foundation
 public class WFCTilesAdjacencyRules {
     var rules: [WFCTilesAdjacencyRule: Bool] = [:]
     
+    var indexedRules: [WFCTilesAdjacencyRuleIndex: [Int]] = [:]
+    
     public func addRule(aID: Int, canAppearRelativeToB bID: Int, inDirection direction: WFCTilesDirection) {
         let rule = WFCTilesAdjacencyRule(aID: aID, bID: bID, direction: direction)
         
         if rules[rule] == nil {
             rules[rule] = true
 //            print("Added rule: \(aID) can appear to the \(direction) of \(bID)")
+        }
+        
+        let index = WFCTilesAdjacencyRuleIndex(bID: bID, direction: direction)
+        if indexedRules[index] != nil {
+            indexedRules[index]?.append(aID)
+        } else {
+            indexedRules[index] = [aID]
         }
     }
     
@@ -29,16 +38,52 @@ public class WFCTilesAdjacencyRules {
     }
     
     public func allElements(canAppearRelativeTo bID: Int, inDirection direction: WFCTilesDirection) -> [Int] {
-        rules.keys
-            .filter({ $0.bID == bID && $0.direction == direction })
-            .map({ $0.aID })
+        indexedRules[WFCTilesAdjacencyRuleIndex(bID: bID, direction: direction)]!
     }
 }
 
-struct WFCTilesAdjacencyRule: Hashable {
+class WFCTilesAdjacencyRule: Hashable {
     let aID: Int
     let bID: Int
     let direction: WFCTilesDirection
+    
+    internal init(aID: Int, bID: Int, direction: WFCTilesDirection) {
+        self.aID = aID
+        self.bID = bID
+        self.direction = direction
+    }
+    
+    static func == (lhs: WFCTilesAdjacencyRule, rhs: WFCTilesAdjacencyRule) -> Bool {
+        lhs.aID == rhs.aID
+        && lhs.bID == rhs.bID
+        && lhs.direction == rhs.direction
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(aID)
+        hasher.combine(bID)
+        hasher.combine(direction)
+    }
+}
+
+class WFCTilesAdjacencyRuleIndex: Hashable {
+    let bID: Int
+    let direction: WFCTilesDirection
+    
+    internal init(bID: Int, direction: WFCTilesDirection) {
+        self.bID = bID
+        self.direction = direction
+    }
+    
+    static func == (lhs: WFCTilesAdjacencyRuleIndex, rhs: WFCTilesAdjacencyRuleIndex) -> Bool {
+        lhs.bID == rhs.bID
+        && lhs.direction == rhs.direction
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(bID)
+        hasher.combine(direction)
+    }
 }
 
 public enum WFCTilesDirection: CaseIterable {

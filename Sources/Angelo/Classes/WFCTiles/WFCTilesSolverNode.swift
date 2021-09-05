@@ -11,8 +11,10 @@ public class WFCTilesSolverNode {
     
     var possibleElements: [Bool]
     
-    var possibleElementsCount: Int {
-        possibleElements.filter({ $0 }).count
+    var possibleElementsCount = 0
+    
+    var hasAPossibleElement: Bool {
+        possibleElementsCount != 0
     }
     
     var onlyPossibleElement: Int? {
@@ -34,12 +36,14 @@ public class WFCTilesSolverNode {
     var solverNodeEnablers: [WFCTilesSolverNodeEnabler]
     
     init(possibleElements: [Bool], solverNodeEnablers: [WFCTilesSolverNodeEnabler], frequency: WFCTilesFrequencyRules) {
+        
         self.possibleElements = possibleElements
+        possibleElementsCount = possibleElements.filter({ $0 }).count
+        
+        self.solverNodeEnablers = solverNodeEnablers
         
         totalWeight = 0
         sumOfWeightLogWeight = 0
-        
-        self.solverNodeEnablers = solverNodeEnablers
         
         // Calculating the actual values
         totalWeight = Double(calculateTotalWeight(frequency: frequency))
@@ -58,6 +62,14 @@ public class WFCTilesSolverNode {
         possibleElements.enumerated().reduce(0, {
             $1.element ? $0 + frequency.getFrequency(forElementID: $1.offset)! : $0
         })
+    }
+    
+    public func disableElement(at position: Int) {
+        if (possibleElements[position]) {
+            possibleElementsCount -= 1
+        }
+        
+        possibleElements[position] = false
     }
     
     public func calculateEntropy(frequency: WFCTilesFrequencyRules) -> Double {
@@ -82,7 +94,7 @@ public class WFCTilesSolverNode {
     }
     
     public func removeTile(elementID: Int, frequency: WFCTilesFrequencyRules) {
-        possibleElements[elementID] = false
+        disableElement(at: elementID)
         
         let relativeFrequency = Double(frequency.getFrequency(forElementID: elementID)!)
         

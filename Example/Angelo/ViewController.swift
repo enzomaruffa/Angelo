@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var result6: UIImageView!
     
     var resultImageViews: [UIImageView] {
-        [result1, result2, result3, result4, result5, result6]
+        [result6]
     }
     
     var i = 0
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
 
         for imageView in resultImageViews {
             let imageViewXSize = imageView.frame.width * xScale
-            let imageViewYSize = imageView.frame.height * yScale
+            let imageViewYSize = imageView.frame.height * xScale
 
             guard let image = createImage(withSize: (Int(imageViewXSize), Int(imageViewYSize))) else {
                 continue
