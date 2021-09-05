@@ -103,16 +103,26 @@ public class WFCTilesSolverNode {
     }
 }
 
-struct WFCTilesSolverNodeEnabler {
+class WFCTilesSolverNodeEnabler: NSObject, NSCopying {
+    
     var byDirection = [WFCTilesDirection: Int]()
     
     var containsAnyZero: Bool {
         byDirection.values.filter({ $0 == 0 }).first != nil
     }
     
-    init() {
+    override init() {
         for direction in WFCTilesDirection.allCases {
             byDirection[direction] = 0
         }
+    }
+    
+    init(byDirection: [WFCTilesDirection: Int]) {
+        self.byDirection = byDirection
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = WFCTilesSolverNodeEnabler(byDirection: byDirection)
+        return copy
     }
 }

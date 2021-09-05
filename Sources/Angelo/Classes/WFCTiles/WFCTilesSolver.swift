@@ -95,7 +95,10 @@ public class WFCTilesSolver {
         for _ in 0..<outputSize.1 {
             var gridRow = [WFCTilesSolverNode]()
             for _ in 0..<outputSize.0 {
-                let node = WFCTilesSolverNode(possibleElements: possibleElementsBools, solverNodeEnablers: solverNodeEnablers, frequency: frequency)
+                
+                let copiedSolverNodeEnablers = solverNodeEnablers.map({ $0.copy() }) as! [WFCTilesSolverNodeEnabler] 
+                
+                let node = WFCTilesSolverNode(possibleElements: possibleElementsBools, solverNodeEnablers: copiedSolverNodeEnablers, frequency: frequency)
                 gridRow.append(node)
             }
             grid?.append(gridRow)
